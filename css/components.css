@@ -1,0 +1,152 @@
+/* ============================================================
+   COMPONENT STYLES
+   ============================================================ */
+
+/* ============================================================
+   CLEAN SCREEN MODE
+   ============================================================ */
+body.clean-screen .app-header {
+  display: none !important;
+}
+
+body.clean-screen .gamification-section {
+  display: none !important;
+}
+
+body.clean-screen .display-controls-section {
+  display: none !important;
+}
+
+body.clean-screen .main-card::before {
+  display: none !important;
+}
+
+body.clean-screen .main-card {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+body.clean-screen .conversation-header {
+  display: none !important;
+}
+
+body.clean-screen .dialogue-container {
+  max-height: 85vh !important;
+}
+
+body.clean-screen .app-footer {
+  display: none !important;
+}
+
+body.clean-screen .watermark {
+  display: none !important;
+}
+
+/* ============================================================
+   FOCUS MODE (Hide Settings Only)
+   ============================================================ */
+.main-card.focus-mode .settings-section {
+  display: none;
+}
+
+.main-card.focus-mode {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+/* ============================================================
+   MUSIC PLAYER
+   ============================================================ */
+.music-box {
+  padding: 12px 14px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-sm);
+  background: rgba(184, 134, 63, 0.04);
+}
+
+.music-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.music-row + .music-row {
+  margin-top: 8px;
+}
+
+.music-label {
+  font-family: 'Noto Sans Khmer', sans-serif;
+  font-size: 12px;
+  color: var(--ink);
+  flex: 0 0 auto;
+}
+
+#musicToggle.playing {
+  background: var(--jade);
+  color: #fdfaf3;
+  border-color: var(--jade);
+}
+
+/* ============================================================
+   SPEED BOX
+   ============================================================ */
+.speed-box {
+  padding: 12px 14px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-sm);
+  background: rgba(63, 99, 85, 0.04);
+}
+
+/* ============================================================
+   THEME PANEL
+   ============================================================ */
+.theme-panel,
+.scene-panel {
+  display: none;
+}
+
+/* ============================================================
+   FULLSCREEN
+   ============================================================ */
+#appRoot:fullscreen,
+#appRoot:-webkit-full-screen {
+  background: var(--paper);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+#appRoot:fullscreen > *,
+#appRoot:-webkit-full-screen > * {
+  width: 100%;
+  max-width: var(--max-width);
+}
+
+/* ============================================================
+   TOGGLE BUTTON STATES
+   ============================================================ */
+.toggle-btn {
+  transition: all var(--transition);
+}
+
+.toggle-btn.active {
+  background: var(--jade);
+  color: #fdfaf3;
+  border-color: var(--jade);
+}
+
+.toggle-btn.inactive {
+  background: var(--panel);
+  color: var(--muted);
+  border-color: var(--line);
+  opacity: 0.6;
+}

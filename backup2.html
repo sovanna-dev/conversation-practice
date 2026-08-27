@@ -1,0 +1,2652 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Everyday Conversations — English Lesson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Khmer:wght@400;600;700&family=Noto+Sans+Khmer:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2b2320;
+    --paper:#f2ede2;
+    --panel:#fffdf8;
+    --gold:#b8863f;
+    --lac:#a8412f;
+    --jade:#3f6355;
+    --line: rgba(43,35,32,0.14);
+    --a-bg:#e9e2d2;
+    --b-bg:#dfe8e2;
+    --muted:#7a6c60;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    background-image:
+      radial-gradient(circle at 12% 8%, rgba(184,134,63,0.10), transparent 40%),
+      radial-gradient(circle at 90% 85%, rgba(63,99,85,0.10), transparent 45%);
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    transition:background-color .3s ease;
+  }
+  body.has-bg-image{
+    background-image:
+      linear-gradient(rgba(242,237,226,0.72), rgba(242,237,226,0.72)),
+      var(--custom-bg-image);
+  }
+  .app{ width:100%; max-width:800px; }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin-bottom:18px;
+  }
+  .brand-mark{
+    flex:0 0 auto;
+    width:36px; height:36px;
+    border-radius:9px;
+    background:linear-gradient(135deg, var(--gold), var(--jade));
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:15px;
+    color:#fdfaf3;
+    letter-spacing:-0.02em;
+    overflow:hidden;
+  }
+  .brand-mark img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+  }
+  .brand-name{
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:17px;
+    letter-spacing:.01em;
+    color:var(--ink);
+  }
+  .brand-name span{ color:var(--gold); }
+  .eyebrow{
+    font-family:'Noto Sans Khmer',sans-serif;
+    font-size:13px; letter-spacing:.04em; color:var(--gold);
+    display:flex; align-items:center; gap:8px; margin-bottom:6px;
+  }
+  .eyebrow::before{ content:""; width:22px;height:1px;background:var(--gold); }
+  h1{
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:clamp(24px,5vw,30px);
+    margin:0 0 4px;
+  }
+  .subtitle{
+    font-family:'Noto Serif Khmer',serif;
+    font-size:15px;
+    color:var(--muted);
+    margin:0 0 22px;
+  }
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding:36px 28px 26px;
+    position:relative;
+  }
+  .card::before{
+    content:""; position:absolute; inset:8px;
+    border:1px solid rgba(184,134,63,0.30);
+    border-radius:2px; pointer-events:none;
+  }
+  .topic-tag{
+    display:inline-block;
+    font-family:'Noto Sans Khmer',sans-serif;
+    font-size:12px;
+    color:var(--jade);
+    border:1px solid var(--jade);
+    border-radius:20px;
+    padding:3px 12px;
+    margin-bottom:20px;
+  }
+  .scene-num{
+    font-family:'Fraunces',serif;
+    font-size:12px;
+    color:var(--muted);
+    font-weight:600;
+    margin-bottom:16px;
+  }
+  .dialogue{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    min-height:220px;
+  }
+  .line{
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    opacity:0.35;
+    transform:translateY(2px);
+    transition:opacity .35s ease, transform .35s ease;
+  }
+  .line.active{ opacity:1; transform:translateY(0); }
+  .line.speaker-b{ flex-direction:row-reverse; text-align:right; }
+  .avatar{
+    flex:0 0 auto;
+    width:34px;height:34px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:14px;
+    color:#fdfaf3;
+    background:var(--gold);
+  }
+  .line.speaker-b .avatar{ background:var(--jade); }
+  .line.is-speaking .avatar{
+    position:relative;
+  }
+  .line.is-speaking .avatar::before{
+    content:"";
+    position:absolute;
+    inset:-4px;
+    border-radius:50%;
+    background: conic-gradient(from 0deg, transparent 0deg, currentColor 65deg, transparent 130deg);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+            mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+    color: var(--gold);
+    animation: run-ring 1s linear infinite;
+    pointer-events:none;
+  }
+  .line.speaker-b.is-speaking .avatar::before{ color: var(--jade); }
+  @keyframes run-ring{ to{ transform:rotate(360deg); } }
+  .line.is-speaking .bubble{
+    box-shadow: 0 0 0 1.5px var(--gold), 0 0 14px 1px rgba(184,134,63,0.35);
+    animation: bubble-pulse 1.3s ease-in-out infinite;
+  }
+  .line.speaker-b.is-speaking .bubble{
+    box-shadow: 0 0 0 1.5px var(--jade), 0 0 14px 1px rgba(63,99,85,0.35);
+  }
+  @keyframes bubble-pulse{
+    0%,100%{ opacity:1; }
+    50%{ opacity:0.8; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .line.is-speaking .avatar::before{ animation:none; }
+    .line.is-speaking .bubble{ animation:none; }
+  }
+  .bubble{
+    max-width:78%;
+    border-radius:10px;
+    padding:12px 14px;
+    background:var(--a-bg);
+  }
+  .line.speaker-b .bubble{ background:var(--b-bg); }
+  .bubble .en{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    font-size:17px;
+    line-height:1.4;
+    margin:0 0 4px;
+  }
+  .bubble .km{
+    font-family:'Noto Serif Khmer',serif;
+    font-size:14px;
+    color:#5a4f47;
+    margin:0;
+  }
+  .bubble-row{
+    display:flex;
+    align-items:flex-end;
+    gap:8px;
+  }
+  .line.speaker-b .bubble-row{ flex-direction:row-reverse; }
+  .speak-btn{
+    flex:0 0 auto;
+    width:28px;height:28px;
+    border-radius:50%;
+    border:1px solid var(--line);
+    background:var(--panel);
+    font-size:13px;
+    padding:0;
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;
+    opacity:0.7;
+  }
+  .speak-btn:hover{ border-color:var(--gold); opacity:1; }
+  .speak-btn.speaking{ background:var(--lac); color:#fdfaf3; border-color:var(--lac); opacity:1; }
+  .controls{
+    display:flex; align-items:center; gap:10px;
+    margin-top:24px;
+  }
+  button{
+    font-family:'Noto Sans Khmer','Inter',sans-serif;
+    border:1px solid var(--line);
+    background:var(--panel);
+    color:var(--ink);
+    border-radius:3px;
+    padding:10px 16px;
+    font-size:14px;
+    cursor:pointer;
+    transition:.15s ease;
+  }
+  button:hover{ border-color:var(--gold); }
+  button:active{ transform:translateY(1px); }
+  button:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+  .primary{
+    background:var(--jade); color:#fdfaf3; border-color:var(--jade);
+    flex:1;
+  }
+  .primary:hover{ background:#345347; }
+  .ghost{ padding:10px 14px; }
+  .progress{ height:2px; background:var(--line); border-radius:2px; margin-top:22px; overflow:hidden; }
+  .progress > div{ height:100%; background:var(--gold); transition:width .3s ease; }
+  .foot{
+    margin-top:16px; font-size:12px; color:var(--muted);
+    font-family:'Noto Sans Khmer',sans-serif; text-align:center;
+  }
+  .music-box{
+    margin-top:14px;
+    padding:14px 14px 12px;
+    border:1px dashed var(--line);
+    border-radius:6px;
+    background:rgba(184,134,63,0.05);
+  }
+  .speed-box{
+    margin-top:10px;
+    padding:12px 14px;
+    border:1px dashed var(--line);
+    border-radius:6px;
+    background:rgba(63,99,85,0.05);
+  }
+  .music-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .music-row + .music-row{ margin-top:10px; }
+  .music-label{
+    font-family:'Noto Sans Khmer',sans-serif;
+    font-size:13px;
+    color:var(--ink);
+    flex:0 0 auto;
+  }
+  input[type="file"]{
+    font-family:'Noto Sans Khmer','Inter',sans-serif;
+    font-size:12px;
+    max-width:100%;
+  }
+  input[type="range"]{
+    flex:1;
+    accent-color: var(--gold);
+  }
+  .music-vol-label{
+    font-family:'Inter',sans-serif;
+    font-size:12px;
+    color:var(--muted);
+    width:36px;
+    text-align:right;
+  }
+  .music-hint{
+    font-family:'Noto Sans Khmer',sans-serif;
+    font-size:11.5px;
+    color:var(--muted);
+    margin:10px 0 0;
+    line-height:1.5;
+  }
+  #musicToggle.playing{ background:var(--jade); color:#fdfaf3; border-color:var(--jade); }
+  .fs-btn{
+    position:absolute;
+    top:10px; right:10px;
+    width:32px; height:32px;
+    padding:0;
+    border-radius:50%;
+    font-size:15px;
+    line-height:1;
+    z-index:5;
+  }
+  .theme-btn{
+    position:absolute;
+    top:10px; right:50px;
+    width:32px; height:32px;
+    padding:0;
+    border-radius:50%;
+    font-size:15px;
+    line-height:1;
+    z-index:5;
+  }
+  .hide-btn{
+    position:absolute;
+    top:10px; left:10px;
+    width:32px; height:32px;
+    padding:0;
+    border-radius:50%;
+    font-size:14px;
+    line-height:1;
+    z-index:5;
+  }
+  .hide-btn.active{ background:var(--jade); color:#fdfaf3; border-color:var(--jade); }
+  .hide-header-btn{
+    position:absolute;
+    top:10px; left:44px;
+    width:32px; height:32px;
+    padding:0;
+    border-radius:50%;
+    font-size:14px;
+    line-height:1;
+    z-index:5;
+    border:1px solid var(--line);
+    background:var(--panel);
+    color:var(--ink);
+    cursor:pointer;
+    transition:all .15s ease;
+  }
+  .hide-header-btn:hover{ border-color:var(--gold); transform:translateY(-1px); }
+  .hide-header-btn.active{ background:var(--jade); color:#fdfaf3; border-color:var(--jade); }
+  .hide-header-btn:active{ transform:translateY(1px); }
+  .card{
+    transition: min-height .3s ease;
+  }
+  .card.focus-mode{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    min-height:66vh;
+  }
+  .card.focus-mode .settings-section{ display:none; }
+  .conversation-section{ width:100%; }
+  .theme-panel{
+    display:none;
+    margin-top:14px;
+    padding:16px 14px 14px;
+    border:1px dashed var(--line);
+    border-radius:6px;
+    background:rgba(43,35,32,0.03);
+  }
+  .theme-title{
+    font-family:'Noto Sans Khmer',sans-serif;
+    font-size:13px;
+    color:var(--ink);
+    margin:0 0 12px;
+  }
+  .swatch-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px 14px;
+  }
+  .swatch-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    cursor:pointer;
+  }
+  .swatch-item input[type="color"]{
+    width:30px; height:30px;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:0;
+    cursor:pointer;
+    background:none;
+  }
+  .swatch-item span{
+    font-family:'Noto Sans Khmer',sans-serif;
+    font-size:11.5px;
+    color:#5a4f47;
+    line-height:1.3;
+  }
+  #appRoot:fullscreen{
+    background:var(--paper);
+    width:100vw; height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:24px;
+  }
+  #appRoot:-webkit-full-screen{
+    background:var(--paper);
+    width:100vw; height:100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    padding:24px;
+  }
+  #appRoot:fullscreen > *,
+  #appRoot:-webkit-full-screen > *{
+    width:100%;
+    max-width:600px;
+  }
+  .countdown-overlay{
+    position:absolute; inset:8px;
+    background:rgba(253,250,243,0.97);
+    border-radius:2px;
+    display:none;
+    align-items:center; justify-content:center;
+    z-index:8;
+  }
+  .countdown-num{
+    font-family:'Fraunces',serif;
+    font-weight:700;
+    font-size:72px;
+    color:var(--jade);
+  }
+  .countdown-label{
+    font-family:'Noto Sans Khmer',sans-serif;
+    font-size:13px;
+    color:var(--ink);
+    margin:0 0 8px;
+    max-width:280px;
+  }
+  .word{
+    cursor:pointer;
+    border-bottom:1px dotted var(--gold);
+    transition:color .15s ease;
+  }
+  .word:hover{ color:var(--gold); }
+  .word-popup{
+    position:fixed;
+    max-width:230px;
+    background:#241f1a;
+    color:#fdfaf3;
+    padding:10px 12px;
+    border-radius:8px;
+    font-size:12.5px;
+    line-height:1.5;
+    z-index:30;
+    display:none;
+    box-shadow:0 8px 24px rgba(0,0,0,0.28);
+  }
+  .word-popup.show{ display:block; }
+  .wp-word{ font-family:'Fraunces',serif; font-weight:700; font-size:14px; margin-bottom:2px; }
+  .wp-phon{ font-family:'Inter',sans-serif; font-weight:400; opacity:0.7; font-size:11px; margin-left:4px; }
+  .wp-pos{ font-style:italic; opacity:0.75; margin-bottom:3px; font-family:'Inter',sans-serif; }
+  .wp-def{ opacity:0.95; font-family:'Inter',sans-serif; }
+  .quiz-overlay{
+    position:absolute; inset:8px;
+    background:rgba(253,250,243,0.98);
+    border-radius:2px;
+    display:none;
+    align-items:center; justify-content:center;
+    z-index:9;
+    padding:20px;
+  }
+  .quiz-overlay.show{ display:flex; }
+  .quiz-box{ width:100%; max-width:420px; text-align:left; }
+  .quiz-title{
+    font-family:'Noto Sans Khmer',sans-serif;
+    font-size:12px; color:var(--gold); letter-spacing:.03em;
+    margin:0 0 10px; text-align:center;
+  }
+  .quiz-prompt{
+    font-family:'Noto Serif Khmer',serif;
+    font-size:16px; margin:0 0 16px; text-align:center;
+  }
+  .quiz-options{ display:flex; flex-direction:column; gap:8px; }
+  .quiz-opt{
+    font-family:'Fraunces',serif; font-size:14.5px;
+    text-align:left; padding:10px 14px; border-radius:8px;
+  }
+  .quiz-opt.correct{ background:var(--jade); color:#fdfaf3; border-color:var(--jade); }
+  .quiz-opt.wrong{ background:var(--lac); color:#fdfaf3; border-color:var(--lac); }
+  .quiz-feedback{
+    font-family:'Noto Sans Khmer',sans-serif;
+    font-size:13px; font-weight:600;
+    text-align:center; margin:10px 0 0; min-height:16px;
+  }
+  .scene-panel{
+    display:none;
+    margin-top:14px;
+    padding:16px 14px 14px;
+    border:1px dashed var(--line);
+    border-radius:6px;
+    background:rgba(184,134,63,0.04);
+  }
+  .line-row{
+    display:flex;
+    gap:6px;
+    align-items:center;
+    margin-top:8px;
+  }
+  .line-row select{
+    flex:0 0 54px;
+    padding:8px 4px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    font-size:13px;
+    background:var(--panel);
+    color:var(--ink);
+  }
+  .line-row input[type="text"]{
+    flex:1; min-width:0;
+    padding:8px 8px;
+    border:1px solid var(--line);
+    border-radius:4px;
+    font-size:12.5px;
+    font-family:'Inter',sans-serif;
+    background:var(--panel);
+    color:var(--ink);
+  }
+  .line-row .row-remove{ flex:0 0 auto; padding:6px 9px; font-size:12px; }
+  #jsonImportArea{
+    width:100%; margin-top:8px;
+    font-family:monospace; font-size:11.5px;
+    padding:8px; border:1px solid var(--line); border-radius:6px;
+    resize:vertical; background:var(--panel); color:var(--ink);
+  }
+  #newSceneTopic{
+    flex:1; padding:8px 10px;
+    border:1px solid var(--line); border-radius:4px;
+    font-family:'Inter',sans-serif; font-size:13px;
+    background:var(--panel);
+    color:var(--ink);
+  }
+  #preRollSeconds{
+    background:var(--panel);
+    color:var(--ink);
+  }
+  .watermark{
+    position:fixed;
+    bottom:14px; right:14px;
+    display:flex; align-items:center; gap:6px;
+    padding:6px 10px;
+    background:rgba(255,253,248,0.85);
+    border:1px solid var(--line);
+    border-radius:20px;
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:12px;
+    color:var(--ink);
+    z-index:50;
+    pointer-events:none;
+  }
+  .watermark img{
+    width:18px; height:18px;
+    border-radius:5px;
+    object-fit:cover;
+  }
+  .watermark.hidden{ display:none; }
+  .mic-btn{ margin-left:4px; }
+  .mic-btn.recording{
+    background:var(--lac); color:#fdfaf3; border-color:var(--lac);
+    animation: pulse-rec 1s ease-in-out infinite;
+  }
+  @keyframes pulse-rec{ 0%,100%{ opacity:1; } 50%{ opacity:0.5; } }
+  .mic-playback{
+    margin-top:6px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    flex-wrap:wrap;
+  }
+  .mic-playback audio{ height:30px; max-width:170px; }
+  .mic-playback .mp-btn{ padding:5px 9px; font-size:11.5px; }
+  .line.speaker-b .mic-playback{ justify-content:flex-end; }
+  @media (prefers-reduced-motion: reduce){ .line, button, .progress > div{ transition:none; } }
+
+  /* ============================================================
+     GAMIFICATION HEADER
+     ============================================================ */
+  .gamification-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 10px 14px;
+    margin-bottom: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .gamification-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(184,134,63,0.06), rgba(63,99,85,0.06));
+    pointer-events: none;
+  }
+  .gamification-header.hidden { display: none !important; }
+
+  .badge-collection {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+    padding: 8px 0;
+  }
+  .badge-collection.hidden { display: none !important; }
+
+  .badge-item {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    border: 2px solid var(--line);
+    background: var(--panel);
+    transition: all .3s ease;
+    position: relative;
+    cursor: default;
+  }
+  .badge-item.unlocked {
+    border-color: var(--gold);
+    background: linear-gradient(135deg, rgba(184,134,63,0.15), rgba(63,99,85,0.15));
+    box-shadow: 0 0 20px rgba(184,134,63,0.3);
+  }
+  .badge-item.locked {
+    opacity: 0.35;
+    filter: grayscale(1);
+  }
+  .badge-item .badge-tooltip {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #1a1a1a;
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 10px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+  .badge-item:hover .badge-tooltip { opacity: 1; }
+
+  /* ============================================================
+     TOGGLE BUTTONS
+     ============================================================ */
+  .toggle-btn {
+    transition: all .15s ease;
+  }
+  .toggle-btn.active {
+    background: var(--jade);
+    color: #fdfaf3;
+    border-color: var(--jade);
+  }
+  .toggle-btn.inactive {
+    background: var(--panel);
+    color: var(--muted);
+    border-color: var(--line);
+    opacity: 0.6;
+  }
+
+  /* ============================================================
+     CLEAN SCREEN MODE
+     ============================================================ */
+  body.clean-screen .brand { display: none !important; }
+  body.clean-screen .eyebrow { display: none !important; }
+  body.clean-screen h1 { display: none !important; }
+  body.clean-screen .subtitle { display: none !important; }
+  body.clean-screen .gamification-header { display: none !important; }
+  body.clean-screen .badge-collection { display: none !important; }
+  body.clean-screen .card::before { display: none !important; }
+  body.clean-screen .card { border: none !important; background: transparent !important; box-shadow: none !important; padding: 0 !important; }
+  body.clean-screen .conversation-header { display: none !important; }
+  body.clean-screen .dialogue-container { max-height: 80vh !important; }
+  body.clean-screen .foot { display: none !important; }
+  body.clean-screen .watermark { display: none !important; }
+
+  /* ============================================================
+     AUTO-PLAYING STATE
+     ============================================================ */
+  .auto-playing .line.is-speaking .bubble {
+    box-shadow: 0 0 0 1.5px var(--gold), 0 0 8px 1px rgba(184,134,63,0.15);
+    animation: none;
+  }
+  .auto-playing .line.is-speaking .avatar::before {
+    animation-duration: 2s;
+  }
+
+  /* ============================================================
+     DIALOGUE CONTAINER - SCROLLBAR VISIBLE ONLY ON HOVER
+     ============================================================ */
+  .dialogue-container {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 4px;
+    scroll-behavior: smooth;
+    position: relative;
+    transition: none;
+    
+    /* Hide scrollbar by default for Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+
+  /* Hide scrollbar by default for WebKit */
+  .dialogue-container::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background: transparent;
+  }
+  .dialogue-container::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .dialogue-container::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 3px;
+    transition: background 0.3s ease;
+  }
+
+  /* Show scrollbar on hover */
+  .dialogue-container:hover::-webkit-scrollbar-thumb {
+    background: var(--gold);
+  }
+  .dialogue-container:hover::-webkit-scrollbar-track {
+    background: var(--line);
+  }
+
+  /* Firefox hover state */
+  .dialogue-container:hover {
+    scrollbar-color: var(--gold) var(--line);
+  }
+
+  /* ============================================================
+     CONFETTI & FLASH ANIMATIONS
+     ============================================================ */
+  .confetti-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    overflow: hidden;
+  }
+  .confetti-piece {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    animation: confetti-fall linear forwards;
+  }
+  @keyframes confetti-fall {
+    0% { transform: translateY(-10px) rotate(0deg) scale(1); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg) scale(0.3); opacity: 0; }
+  }
+
+  .xp-flash {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 32px;
+    color: #f5a623;
+    text-shadow: 0 2px 20px rgba(245,166,35,0.5);
+    pointer-events: none;
+    z-index: 60;
+    animation: xp-pop 1s ease-out forwards;
+  }
+  @keyframes xp-pop {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+    30% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+    70% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -70%) scale(1); }
+  }
+
+  .level-up-flash {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 40px;
+    color: var(--gold);
+    text-shadow: 0 0 40px rgba(184,134,63,0.6), 0 4px 20px rgba(0,0,0,0.2);
+    pointer-events: none;
+    z-index: 61;
+    animation: level-pop 1.8s ease-out forwards;
+    text-align: center;
+  }
+  .level-up-flash .sub {
+    font-size: 18px;
+    font-weight: 400;
+    display: block;
+    color: #fff;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+  }
+  @keyframes level-pop {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3) rotate(-10deg); }
+    30% { opacity: 1; transform: translate(-50%, -50%) scale(1.3) rotate(2deg); }
+    50% { transform: translate(-50%, -50%) scale(0.95) rotate(-1deg); }
+    70% { transform: translate(-50%, -50%) scale(1.05) rotate(0); }
+    100% { opacity: 0; transform: translate(-50%, -70%) scale(1); }
+  }
+
+  .badge-unlock-flash {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--gold), var(--jade));
+    padding: 20px 40px;
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+    pointer-events: none;
+    z-index: 62;
+    animation: badge-pop 2s ease-out forwards;
+    text-align: center;
+  }
+  .badge-unlock-flash .sub {
+    font-size: 14px;
+    font-weight: 400;
+    opacity: 0.85;
+    display: block;
+    margin-top: 4px;
+  }
+  @keyframes badge-pop {
+    0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5) rotate(-5deg); }
+    20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+    40% { transform: translate(-50%, -50%) scale(0.95); }
+    60% { transform: translate(-50%, -50%) scale(1.05); }
+    80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    100% { opacity: 0; transform: translate(-50%, -60%) scale(1); }
+  }
+</style>
+</head>
+<body>
+<div class="app" id="appRoot">
+  <div class="brand">
+    <div class="brand-mark"><img src="image/logo_ES.jpg" alt="English Share logo"></div>
+    <div class="brand-name">English<span>Share</span></div>
+  </div>
+  <div class="eyebrow">មេរៀន · Conversation Practice</div>
+  <h1>Everyday Conversations</h1>
+  <p class="subtitle">ការសន្ទនាប្រចាំថ្ងៃ — ជាមួយប្រព័ន្ធពិន្ទុ និងសមិទ្ធផល</p>
+
+  <!-- Gamification Header -->
+  <div class="gamification-header" id="gamificationHeader">
+    <div class="g-left" style="display:flex;align-items:center;gap:12px;flex:1;position:relative;z-index:1;">
+      <div class="g-level-badge" id="levelBadge" style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--jade));display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:700;font-size:18px;color:#fff;flex-shrink:0;box-shadow:0 2px 12px rgba(184,134,63,0.3);">1</div>
+      <div class="g-info" style="flex:1;min-width:0;">
+        <div class="g-name" style="font-family:'Fraunces',serif;font-weight:600;font-size:14px;display:flex;align-items:center;gap:6px;">
+          <span id="playerName">អ្នកសិក្សា</span>
+          <span class="level-tag" id="levelTag" style="font-size:10px;background:var(--gold);color:#fff;padding:1px 8px;border-radius:10px;font-family:'Inter',sans-serif;font-weight:600;">កម្រិត 1</span>
+        </div>
+        <div class="g-xp-bar" style="height:6px;background:var(--line);border-radius:3px;margin-top:4px;overflow:hidden;">
+          <div class="fill" id="xpBarFill" style="height:100%;background:linear-gradient(90deg,var(--gold),var(--jade));border-radius:3px;transition:width .6s ease;width:0%;"></div>
+        </div>
+        <div class="g-xp-text" style="font-size:11px;color:var(--muted);font-family:'Inter',sans-serif;display:flex;justify-content:space-between;margin-top:2px;">
+          <span id="xpDisplay">0 XP</span>
+          <span id="xpNext">0 XP</span>
+        </div>
+      </div>
+    </div>
+    <div class="g-right" style="display:flex;align-items:center;gap:10px;position:relative;z-index:1;">
+      <div class="g-stat" style="text-align:center;padding:0 6px;">
+        <span class="num points" id="pointsDisplay" style="font-family:'Fraunces',serif;font-weight:700;font-size:15px;display:block;line-height:1.2;color:var(--gold);">0</span>
+        <span class="label" style="font-size:9px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);">ពិន្ទុ</span>
+      </div>
+      <div class="g-stat" style="text-align:center;padding:0 6px;">
+        <span class="num streak" id="streakDisplay" style="font-family:'Fraunces',serif;font-weight:700;font-size:15px;display:block;line-height:1.2;color:var(--lac);">0🔥</span>
+        <span class="label" style="font-size:9px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);">ថ្ងៃ</span>
+      </div>
+      <div class="g-stat" style="text-align:center;padding:0 6px;">
+        <span class="num" id="sessionTime" style="font-family:'Fraunces',serif;font-weight:700;font-size:12px;display:block;line-height:1.2;">00:00</span>
+        <span class="label" style="font-size:9px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);">ពេលវេលា</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Badge Collection -->
+  <div class="badge-collection" id="badgeCollection"></div>
+
+  <div class="card">
+    <button class="fs-btn" id="fsBtn" title="Fullscreen">⛶</button>
+    <button class="theme-btn" id="themeBtn" title="Customize colors">🎨</button>
+    <button class="hide-btn" id="hideSettingsBtn" title="លាក់ការកំណត់">⚙</button>
+    <button class="hide-header-btn" id="hideHeaderBtn" title="Hide header">👤</button>
+    <div class="conversation-section" id="conversationSection">
+    <div class="topic-tag" id="topicTag">At a Coffee Shop</div>
+    <div class="scene-num" id="sceneNum">Scene 01 / 03</div>
+    <div class="dialogue-container" id="dialogueContainer">
+      <div class="dialogue" id="dialogue"></div>
+    </div>
+    <div class="countdown-overlay" id="countdownOverlay">
+      <div style="text-align:center;">
+        <p class="countdown-label" id="countdownLabel"></p>
+        <div class="countdown-num" id="countdownNum">3</div>
+      </div>
+    </div>
+    <div class="quiz-overlay" id="quizOverlay">
+      <div class="quiz-box">
+        <p class="quiz-title">តេស្តខ្លី — ជ្រើសរើសប្រយោគត្រូវ</p>
+        <p class="quiz-prompt" id="quizPrompt"></p>
+        <div class="quiz-options" id="quizOptions"></div>
+        <p class="quiz-feedback" id="quizFeedback"></p>
+        <button class="ghost" id="quizSkipBtn" style="margin-top:10px;">រំលង →</button>
+      </div>
+    </div>
+    </div>
+
+    <div class="settings-section" id="settingsSection">
+    <div class="controls" style="margin-bottom:2px;">
+      <select id="translateLangSelect" style="flex:1; padding:9px 10px; border:1px solid var(--line); border-radius:4px; font-family:'Noto Sans Khmer',sans-serif; font-size:13px; background:var(--panel); color:var(--ink);">
+        <option value="km">ខ្មែរ (Khmer) — ដើម</option>
+        <option value="en">English</option>
+        <option value="fr">Français</option>
+        <option value="es">Español</option>
+        <option value="zh-CN">中文 (Chinese)</option>
+        <option value="ja">日本語 (Japanese)</option>
+        <option value="ko">한국어 (Korean)</option>
+        <option value="th">ไทย (Thai)</option>
+        <option value="vi">Tiếng Việt</option>
+        <option value="hi">हिन्दी (Hindi)</option>
+        <option value="ar">العربية (Arabic)</option>
+        <option value="ru">Русский</option>
+        <option value="de">Deutsch</option>
+        <option value="pt">Português</option>
+        <option value="id">Bahasa Indonesia</option>
+      </select>
+    </div>
+    <p class="music-hint" style="margin:4px 0 8px;">បកប្រែជំនួសអក្សរខ្មែរក្រោមប្រយោគ EN — ប្រើ Google Translate ស្វ័យប្រវត្តិ (ត្រូវការអ៊ីនធឺណិត អាចនឹងមិនត្រឹមត្រូវ១០០%)</p>
+    <div class="controls" style="margin-bottom:2px;">
+      <select id="sceneSelect" style="flex:1; padding:9px 10px; border:1px solid var(--line); border-radius:4px; font-family:'Noto Sans Khmer',sans-serif; font-size:13px; background:var(--panel); color:var(--ink);"></select>
+    </div>
+    <div class="controls">
+      <button class="ghost" id="prevBtn">← ត្រឡប់</button>
+      <button class="primary" id="nextLineBtn">លាតបន្ទាត់បន្ទាប់ →</button>
+      <button class="ghost" id="nextSceneBtn">ឆាកបន្ទាប់ ⇥</button>
+    </div>
+    <div class="controls" style="margin-top:10px;">
+      <label class="music-label" for="preRollSeconds" style="flex:1;">⏳ ពេលរង់ចាំមុនចាប់ផ្តើម (វិនាទី) — សម្រាប់បើកកម្មវិធីថតអេក្រង់</label>
+      <input type="number" id="preRollSeconds" min="0" max="60" value="10" style="width:60px; padding:8px; border:1px solid var(--line); border-radius:4px; font-family:'Inter',sans-serif; font-size:13px;">
+    </div>
+    <div class="controls" style="margin-top:10px;">
+      <button class="primary" id="recordBtn" style="width:100%; background:var(--lac); border-color:var(--lac);">🎬 ចាប់ផ្តើមថតវីដេអូ (Fullscreen + រាប់ថយក្រោយ + Auto-play)</button>
+    </div>
+    <div class="controls" style="margin-top:10px;">
+      <button class="primary" id="autoPlayBtn" style="width:100%;">▶ លេងស្វ័យប្រវត្តិ (Auto-play)</button>
+    </div>
+    <div class="controls" style="margin-top:10px;">
+      <button class="ghost toggle-btn active" id="autoSpeakBtn" style="width:100%;">🔊 អានពេលចុចដៃ: បើក</button>
+    </div>
+
+    <div class="speed-box">
+      <div class="music-row">
+        <label class="music-label" for="lineDelay">⏱ ល្បឿនរវាងបន្ទាត់</label>
+        <input type="range" id="lineDelay" min="0.2" max="3" step="0.1" value="0.55">
+        <span class="music-vol-label" id="lineDelayLabel">0.55s</span>
+      </div>
+    </div>
+
+    <div class="speed-box">
+      <p class="theme-title" style="margin-bottom:10px;">🗣️ សំឡេង TTS</p>
+      <div class="music-row">
+        <label class="music-label" for="voiceSelectA">សំឡេង Speaker A</label>
+        <select id="voiceSelectA" style="flex:1; padding:8px; border:1px solid var(--line); border-radius:4px; background:var(--panel); color:var(--ink); font-size:12.5px;"></select>
+      </div>
+      <div class="music-row">
+        <label class="music-label" for="voiceSelectB">សំឡេង Speaker B</label>
+        <select id="voiceSelectB" style="flex:1; padding:8px; border:1px solid var(--line); border-radius:4px; background:var(--panel); color:var(--ink); font-size:12.5px;"></select>
+      </div>
+      <div class="music-row" style="margin-top:10px;">
+        <label class="music-label" for="ttsRate">ល្បឿននិយាយ TTS</label>
+        <input type="range" id="ttsRate" min="0.5" max="1.5" step="0.05" value="0.9">
+        <span class="music-vol-label" id="ttsRateLabel">0.90x</span>
+      </div>
+    </div>
+
+    <div class="theme-panel" id="themePanel">
+      <p class="theme-title">🎨 ប្តូរពណ៌ និងផ្ទៃខាងក្រោយ</p>
+
+      <div class="controls" style="margin-bottom:14px;">
+        <button class="ghost" id="darkModeBtn" style="width:100%;">🌙 Dark Mode</button>
+      </div>
+
+      <div class="swatch-grid">
+        <label class="swatch-item">
+          <input type="color" id="colorGold" value="#b8863f">
+          <span>ពណ៌មាស (Accent)</span>
+        </label>
+        <label class="swatch-item">
+          <input type="color" id="colorJade" value="#3f6355">
+          <span>ពណ៌បៃតង (Speaker B)</span>
+        </label>
+        <label class="swatch-item">
+          <input type="color" id="colorLac" value="#a8412f">
+          <span>ពណ៌ក្រហម (សំឡេងកំពុងលេង)</span>
+        </label>
+        <label class="swatch-item">
+          <input type="color" id="colorPaper" value="#f2ede2">
+          <span>ផ្ទៃខាងក្រោយទំព័រ</span>
+        </label>
+        <label class="swatch-item">
+          <input type="color" id="colorPanel" value="#fffdf8">
+          <span>ផ្ទៃខាងក្រោយកាត</span>
+        </label>
+        <label class="swatch-item">
+          <input type="color" id="colorAbg" value="#e9e2d2">
+          <span>ពពុះនិយាយ Speaker A</span>
+        </label>
+        <label class="swatch-item">
+          <input type="color" id="colorBbg" value="#dfe8e2">
+          <span>ពពុះនិយាយ Speaker B</span>
+        </label>
+      </div>
+
+      <div class="music-row" style="margin-top:14px;">
+        <label class="music-label" for="bgImageFile">🖼 រូបភាពផ្ទៃខាងក្រោយ</label>
+        <input type="file" id="bgImageFile" accept="image/*">
+      </div>
+      <div class="music-row" id="bgImageControls" style="display:none; margin-top:10px;">
+        <button class="ghost" id="removeBgImageBtn">✕ លុបរូបភាព</button>
+      </div>
+
+      <div class="controls" style="margin-top:14px;">
+        <button class="ghost" id="resetThemeBtn" style="width:100%;">↺ ត្រឡប់ពណ៌លំនាំដើម</button>
+      </div>
+
+      <div class="controls" style="margin-top:14px;">
+        <button class="ghost" id="exportSettingsBtn" style="flex:1;">⬇ Export Settings</button>
+        <button class="ghost" id="importSettingsBtn" style="flex:1;">⬆ Import Settings</button>
+        <input type="file" id="importSettingsFile" accept="application/json" style="display:none;">
+      </div>
+      <p class="music-hint">រក្សាទុកពណ៌ / ល្បឿន / សំឡេង / watermark ជាឯកសារ .json ដើម្បីនាំចូលមកវិញពេលក្រោយ (រូបភាពផ្ទៃខាងក្រោយ និង scene ដែលបន្ថែម មិនរួមបញ្ចូលទេ)</p>
+    </div>
+
+    <div class="music-box">
+      <div class="music-row">
+        <label class="music-label" for="musicFile">🎵 ភ្លេងផ្ទៃខាងក្រោយ</label>
+        <input type="file" id="musicFile" accept="audio/*">
+      </div>
+      <div class="music-row" id="musicControls" style="display:none;">
+        <button class="ghost" id="musicToggle">▶ ចាក់ភ្លេង</button>
+        <input type="range" id="musicVolume" min="0" max="1" step="0.01" value="0.15">
+        <span class="music-vol-label" id="musicVolLabel">15%</span>
+      </div>
+      <p class="music-hint" id="musicHint">ជ្រើសរើសឯកសារ MP3/WAV ពីម៉ាស៊ីនអ្នក — ភ្លេងចាក់ក្នុង browser នេះប៉ុណ្ណោះ មិនរួមបញ្ចូលក្នុងវីដេអូដោយស្វ័យប្រវត្តិទេ (ថតអេក្រង់ព្រមសំឡេងកុំព្យូទ័រ ដើម្បីបានទាំងពីរ)</p>
+    </div>
+
+    <div class="controls" style="margin-top:10px;">
+      <button class="ghost" id="exportSrtBtn" style="width:100%;">⬇ នាំចេញ Subtitle (.srt)</button>
+    </div>
+    <p class="music-hint" style="margin-top:8px;">ពេលវេលាក្នុង .srt ជាការប៉ាន់ស្មានតាមចំនួនពាក្យ + ល្បឿនរវាងបន្ទាត់ដែលអ្នកកំណត់ខាងលើ — ប្រហែលមិនដិតដល់សំឡេង TTS ជាក់ស្តែងទាំងស្រុងទេ សូមកែតម្រូវបន្តិចនៅក្នុងកម្មវិធីកាត់តវីដេអូ</p>
+
+    <div class="controls" style="margin-top:10px;">
+      <button class="ghost" id="sceneManagerBtn" style="width:100%;">📝 គ្រប់គ្រង Scene (បន្ថែម / នាំចូល)</button>
+    </div>
+    <div class="scene-panel" id="scenePanel">
+      <p class="theme-title">📝 បន្ថែម Scene ថ្មីដោយខ្លួនឯង</p>
+      <div class="music-row">
+        <label class="music-label" for="newSceneTopic">ប្រធានបទ</label>
+        <input type="text" id="newSceneTopic" placeholder="e.g. At the Market">
+      </div>
+      <div id="newSceneLines"></div>
+      <div class="controls" style="margin-top:10px;">
+        <button class="ghost" id="addLineRowBtn" style="width:100%;">+ បន្ថែមបន្ទាត់</button>
+      </div>
+      <div class="controls" style="margin-top:10px;">
+        <button class="primary" id="saveSceneBtn" style="width:100%;">💾 រក្សាទុក Scene</button>
+      </div>
+
+      <p class="theme-title" style="margin-top:18px;">📋 ឬ នាំចូលជា JSON</p>
+      <textarea id="jsonImportArea" rows="5" placeholder='[{"topic":"At the Market","lines":[{"speaker":"A","en":"How much is this?","km":"នេះថ្លៃប៉ុន្មាន?"}]}]'></textarea>
+      <div class="controls" style="margin-top:10px;">
+        <button class="ghost" id="importJsonBtn" style="width:100%;">⬆ នាំចូល JSON</button>
+      </div>
+      <p class="music-hint" id="sceneManagerHint"></p>
+    </div>
+
+    <div class="controls" style="margin-top:10px;">
+      <button class="ghost toggle-btn active" id="watermarkToggleBtn" style="flex:1;">🏷 Watermark: បើក</button>
+      <select id="watermarkPosSelect" style="flex:1; padding:9px 8px; border:1px solid var(--line); border-radius:4px; font-family:'Noto Sans Khmer',sans-serif; font-size:12.5px; background:var(--panel); color:var(--ink);">
+        <option value="br">ក្រោម-ស្តាំ</option>
+        <option value="bl">ក្រោម-ឆ្វេង</option>
+        <option value="tr">លើ-ស្តាំ</option>
+        <option value="tl">លើ-ឆ្វេង</option>
+      </select>
+    </div>
+
+    <audio id="bgMusic" loop></audio>
+    <div class="progress"><div id="progressBar" style="width:0%"></div></div>
+    </div>
+  </div>
+  <div class="foot">Speaker A = សំឡេងប្រុស, Speaker B = សំឡេងស្រី — ចុច "លេងស្វ័យប្រវត្តិ" ដើម្បីអោយវាបន្តគ្នារហូតដល់ចប់</div>
+  <div class="watermark" id="watermark">
+    <img src="image/logo_ES.jpg" alt="">
+    <span>English Share</span>
+  </div>
+</div>
+<div class="word-popup" id="wordPopup"></div>
+
+<script>
+// ============================================================
+//  CONVERSATION DATA
+// ============================================================
+const scenes = [
+  {
+    topic: "At a Coffee Shop",
+    lines: [
+      { speaker: "A", en: "Hi! What would you like to order?", km: "សួស្តី! តើអ្នកចង់បញ្ជាទិញអ្វី?" },
+      { speaker: "B", en: "Can I get a small latte, please?", km: "សុំកាហ្វេឡាតេមួយកែវតូចបានទេ?" },
+      { speaker: "A", en: "Sure! For here or to go?", km: "បាទ/ចាស! ញ៉ាំនៅទីនេះ ឬយកទៅ?" },
+      { speaker: "B", en: "To go, thanks.", km: "យកទៅ សូមអរគុណ។" },
+    ]
+  },
+  {
+    topic: "Asking for Directions",
+    lines: [
+      { speaker: "A", en: "Excuse me, how do I get to the station?", km: "សុំទោស តើទៅស្ថានីយ៍ធ្វើដូចម្តេច?" },
+      { speaker: "B", en: "Go straight, then turn left.", km: "ដើរត្រង់ទៅ រួចបត់ឆ្វេង។" },
+      { speaker: "A", en: "Is it far from here?", km: "តើវាឆ្ងាយពីទីនេះទេ?" },
+      { speaker: "B", en: "No, just five minutes on foot.", km: "ទេ ដើរតែប្រាំនាទីប៉ុណ្ណោះ។" },
+    ]
+  },
+  {
+    topic: "First Day at Work",
+    lines: [
+      { speaker: "A", en: "Welcome to the team! I'm Sarah.", km: "ស្វាគមន៍ចូលក្រុម! ខ្ញុំឈ្មោះ Sarah។" },
+      { speaker: "B", en: "Nice to meet you. I'm a bit nervous.", km: "រីករាយដែលបានស្គាល់អ្នក។ ខ្ញុំមានអារម្មណ៍ភ័យបន្តិច។" },
+      { speaker: "A", en: "Don't worry, everyone is friendly here.", km: "កុំបារម្ភ អ្នកគ្រប់គ្នានៅទីនេះមានភាពរាក់ទាក់។" },
+      { speaker: "B", en: "That's good to hear.", km: "ល្អណាស់ដែលបានឮដូច្នេះ។" },
+    ]
+  }
+];
+
+// ============================================================
+//  GAMIFICATION SYSTEM
+// ============================================================
+const GAME = {
+  points: 0,
+  xp: 0,
+  level: 1,
+  streak: 0,
+  lastSessionDate: null,
+  sessionSeconds: 0,
+  sessionTimer: null,
+  badges: [],
+  totalLinesRevealed: 0,
+  totalScenesCompleted: 0,
+  totalQuizzesCorrect: 0,
+  totalSpeaks: 0,
+  totalMics: 0,
+};
+
+const BADGES = [
+  { id: 'first_step', icon: '👣', name: 'ជំហានដំបូង', desc: 'បើកបន្ទាត់ដំបូង', check: function() { return GAME.totalLinesRevealed >= 1; } },
+  { id: 'talker', icon: '🗣️', name: 'អ្នកនិយាយ', desc: 'ចុចអាន 10 ដង', check: function() { return GAME.totalSpeaks >= 10; } },
+  { id: 'scene_master', icon: '🎬', name: 'ម្ចាស់ឆាក', desc: 'បញ្ចប់ 5 Scene', check: function() { return GAME.totalScenesCompleted >= 5; } },
+  { id: 'quiz_king', icon: '👑', name: 'ស្តេចតេស្ត', desc: 'ឆ្លើយតេស្តត្រូវ 5 ដង', check: function() { return GAME.totalQuizzesCorrect >= 5; } },
+  { id: 'streak_3', icon: '🔥', name: 'ភ្លើងឆេះ', desc: 'Streak 3 ថ្ងៃ', check: function() { return GAME.streak >= 3; } },
+  { id: 'streak_7', icon: '⚡', name: 'ផ្លេកបន្ទោរ', desc: 'Streak 7 ថ្ងៃ', check: function() { return GAME.streak >= 7; } },
+  { id: 'mic_user', icon: '🎙️', name: 'អ្នកថតសំឡេង', desc: 'ប្រើមីក្រូ 5 ដង', check: function() { return GAME.totalMics >= 5; } },
+  { id: 'level_5', icon: '⭐', name: 'កម្រិត 5', desc: 'ឈានដល់កម្រិត 5', check: function() { return GAME.level >= 5; } },
+];
+
+function xpForLevel(level) { return Math.floor(50 * Math.pow(1.4, level - 1)); }
+function getLevelXp() { return xpForLevel(GAME.level); }
+function getNextLevelXp() { return xpForLevel(GAME.level + 1); }
+function getLevelProgress() {
+  var current = getLevelXp();
+  var next = getNextLevelXp();
+  var xpInLevel = GAME.xp - current;
+  return Math.min(1, Math.max(0, xpInLevel / (next - current)));
+}
+
+function updateGamificationUI() {
+  var progress = getLevelProgress();
+  var levelBadge = document.getElementById('levelBadge');
+  var levelTag = document.getElementById('levelTag');
+  var xpBarFill = document.getElementById('xpBarFill');
+  var xpDisplay = document.getElementById('xpDisplay');
+  var xpNext = document.getElementById('xpNext');
+  var pointsDisplay = document.getElementById('pointsDisplay');
+  var streakDisplay = document.getElementById('streakDisplay');
+  
+  if (levelBadge) levelBadge.textContent = GAME.level;
+  if (levelTag) levelTag.textContent = 'កម្រិត ' + GAME.level;
+  if (xpBarFill) xpBarFill.style.width = (progress * 100) + '%';
+  if (xpDisplay) xpDisplay.textContent = GAME.xp + ' XP';
+  if (xpNext) xpNext.textContent = getNextLevelXp() + ' XP';
+  if (pointsDisplay) pointsDisplay.textContent = GAME.points;
+  if (streakDisplay) streakDisplay.textContent = GAME.streak + '🔥';
+  renderBadges();
+  saveGameState();
+}
+
+function renderBadges() {
+  var container = document.getElementById('badgeCollection');
+  if (!container) return;
+  container.innerHTML = '';
+  BADGES.forEach(function(b) {
+    var unlocked = GAME.badges.includes(b.id);
+    var div = document.createElement('div');
+    div.className = 'badge-item ' + (unlocked ? 'unlocked' : 'locked');
+    div.title = b.name + ': ' + b.desc;
+    div.innerHTML = b.icon + '<span class="badge-tooltip">' + b.name + (unlocked ? ' ✅' : ' 🔒') + '</span>';
+    container.appendChild(div);
+  });
+}
+
+function addXP(amount) {
+  GAME.xp += amount;
+  GAME.points += Math.floor(amount / 2);
+  var leveledUp = false;
+  while (GAME.xp >= getNextLevelXp()) {
+    GAME.level++;
+    leveledUp = true;
+    GAME.points += GAME.level * 10;
+    showLevelUp(GAME.level);
+    spawnConfetti(40);
+  }
+  updateGamificationUI();
+  if (leveledUp) { checkBadges(); }
+  if (amount > 0 && !leveledUp) { showXPPopup(amount); }
+}
+
+function addPoints(amount) {
+  GAME.points += amount;
+  updateGamificationUI();
+}
+
+function showXPPopup(amount) {
+  var el = document.createElement('div');
+  el.className = 'xp-flash';
+  el.textContent = '+' + amount + ' XP';
+  document.body.appendChild(el);
+  setTimeout(function() { el.remove(); }, 1000);
+}
+
+function showLevelUp(level) {
+  var el = document.createElement('div');
+  el.className = 'level-up-flash';
+  el.innerHTML = '🎉 កម្រិត ' + level + '!<span class="sub">+' + (level * 10) + ' ពិន្ទុបន្ថែម</span>';
+  document.body.appendChild(el);
+  setTimeout(function() { el.remove(); }, 2000);
+  spawnConfetti(60);
+}
+
+function showBadgeUnlock(badge) {
+  var el = document.createElement('div');
+  el.className = 'badge-unlock-flash';
+  el.innerHTML = '🏅 ' + badge.icon + ' ' + badge.name + '<span class="sub">' + badge.desc + '</span>';
+  document.body.appendChild(el);
+  setTimeout(function() { el.remove(); }, 2200);
+  spawnConfetti(50);
+}
+
+function spawnConfetti(count) {
+  var container = document.createElement('div');
+  container.className = 'confetti-container';
+  document.body.appendChild(container);
+  var colors = ['#b8863f', '#3f6355', '#a8412f', '#f5a623', '#e74c3c', '#3498db', '#2ecc71', '#f1c40f'];
+  for (var i = 0; i < count; i++) {
+    var piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    var size = 6 + Math.random() * 8;
+    piece.style.width = size + 'px';
+    piece.style.height = size + 'px';
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.left = Math.random() * 100 + '%';
+    piece.style.top = '-10px';
+    piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    piece.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+    piece.style.animationDelay = Math.random() * 0.5 + 's';
+    container.appendChild(piece);
+  }
+  setTimeout(function() { container.remove(); }, 3000);
+}
+
+function checkBadges() {
+  var unlocked = false;
+  BADGES.forEach(function(b) {
+    if (!GAME.badges.includes(b.id) && b.check()) {
+      GAME.badges.push(b.id);
+      unlocked = true;
+      showBadgeUnlock(b);
+      addPoints(15);
+    }
+  });
+  if (unlocked) updateGamificationUI();
+  return unlocked;
+}
+
+function updateStreak() {
+  var today = new Date().toDateString();
+  if (GAME.lastSessionDate !== today) {
+    var yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    var yesterdayStr = yesterday.toDateString();
+    if (GAME.lastSessionDate === yesterdayStr) {
+      GAME.streak++;
+    } else if (GAME.lastSessionDate !== today) {
+      GAME.streak = 1;
+    }
+    GAME.lastSessionDate = today;
+    updateGamificationUI();
+    checkBadges();
+  }
+}
+
+function startSessionTimer() {
+  if (GAME.sessionTimer) return;
+  GAME.sessionTimer = setInterval(function() {
+    GAME.sessionSeconds++;
+    var mins = String(Math.floor(GAME.sessionSeconds / 60)).padStart(2, '0');
+    var secs = String(GAME.sessionSeconds % 60).padStart(2, '0');
+    var el = document.getElementById('sessionTime');
+    if (el) el.textContent = mins + ':' + secs;
+    if (GAME.sessionSeconds % 300 === 0) {
+      addXP(5);
+    }
+  }, 1000);
+}
+
+function saveGameState() {
+  try {
+    var state = {
+      points: GAME.points,
+      xp: GAME.xp,
+      level: GAME.level,
+      streak: GAME.streak,
+      lastSessionDate: GAME.lastSessionDate,
+      sessionSeconds: GAME.sessionSeconds,
+      badges: GAME.badges,
+      totalLinesRevealed: GAME.totalLinesRevealed,
+      totalScenesCompleted: GAME.totalScenesCompleted,
+      totalQuizzesCorrect: GAME.totalQuizzesCorrect,
+      totalSpeaks: GAME.totalSpeaks,
+      totalMics: GAME.totalMics,
+    };
+    localStorage.setItem('english_share_game', JSON.stringify(state));
+  } catch (e) { /* ignore */ }
+}
+
+function loadGameState() {
+  try {
+    var raw = localStorage.getItem('english_share_game');
+    if (!raw) return;
+    var state = JSON.parse(raw);
+    Object.assign(GAME, state);
+  } catch (e) { /* ignore */ }
+}
+
+// ============================================================
+//  APP STATE
+// ============================================================
+var sceneIdx = 0;
+var lineIdx = -1;
+var autoSpeak = true;
+var autoPlaying = false;
+var voices = [];
+var manualVoiceA = null;
+var manualVoiceB = null;
+var ttsRate = 0.9;
+var activeRecorder = null;
+var activeMicBtn = null;
+var micAutoStopTimer = null;
+var fadeInterval = null;
+var pendingAfterQuiz = null;
+var popupAbortController = null;
+var settingsHidden = false;
+var headerHidden = false;
+var cleanScreenMode = false;
+var targetLang = 'km';
+var translationCache = {};
+var autoScrollEnabled = true;
+var forceAutoScroll = false;
+
+// ============================================================
+//  DOM REFERENCES
+// ============================================================
+var dialogueEl = document.getElementById('dialogue');
+var dialogueContainer = document.getElementById('dialogueContainer');
+var topicTag = document.getElementById('topicTag');
+var sceneNum = document.getElementById('sceneNum');
+var progressBar = document.getElementById('progressBar');
+var appRoot = document.getElementById('appRoot');
+var sceneSelect = document.getElementById('sceneSelect');
+var autoPlayBtn = document.getElementById('autoPlayBtn');
+var countdownOverlay = document.getElementById('countdownOverlay');
+var countdownNum = document.getElementById('countdownNum');
+var countdownLabel = document.getElementById('countdownLabel');
+var lineDelaySlider = document.getElementById('lineDelay');
+var lineDelayLabel = document.getElementById('lineDelayLabel');
+var quizOverlay = document.getElementById('quizOverlay');
+var quizPrompt = document.getElementById('quizPrompt');
+var quizOptions = document.getElementById('quizOptions');
+var quizSkipBtn = document.getElementById('quizSkipBtn');
+var bgMusic = document.getElementById('bgMusic');
+var musicFileInput = document.getElementById('musicFile');
+var musicControls = document.getElementById('musicControls');
+var musicHint = document.getElementById('musicHint');
+var musicToggle = document.getElementById('musicToggle');
+var musicVolume = document.getElementById('musicVolume');
+var musicVolLabel = document.getElementById('musicVolLabel');
+var voiceSelectA = document.getElementById('voiceSelectA');
+var voiceSelectB = document.getElementById('voiceSelectB');
+var ttsRateSlider = document.getElementById('ttsRate');
+var ttsRateLabel = document.getElementById('ttsRateLabel');
+var watermarkEl = document.getElementById('watermark');
+var wordPopup = document.getElementById('wordPopup');
+
+// ============================================================
+//  UTILITY FUNCTIONS
+// ============================================================
+function pad(n) { return String(n).padStart(2, '0'); }
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, function(c) {
+    return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]);
+  });
+}
+
+function getLineDelay() { return parseFloat(lineDelaySlider.value) * 1000; }
+
+function shuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = a[i];
+    a[i] = a[j];
+    a[j] = temp;
+  }
+  return a;
+}
+
+function getEnVoices() {
+  return voices.filter(function(v) { return v.lang && v.lang.toLowerCase().startsWith('en'); });
+}
+
+// ============================================================
+//  TRANSLATION
+// ============================================================
+async function translateText(text, langCode) {
+  if (langCode === 'km') return text;
+  var cacheKey = langCode + '::' + text;
+  if (translationCache[cacheKey]) return translationCache[cacheKey];
+  try {
+    var url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=' + encodeURIComponent(langCode) + '&dt=t&q=' + encodeURIComponent(text);
+    var res = await fetch(url);
+    if (!res.ok) throw new Error('translate failed');
+    var data = await res.json();
+    var translated = (data[0] || []).map(function(part) { return part[0]; }).join('');
+    translationCache[cacheKey] = translated;
+    return translated;
+  } catch (e) {
+    return text + ' (មិនអាចបកប្រែបានទេ)';
+  }
+}
+
+// ============================================================
+//  AUTO-SCROLL
+// ============================================================
+function scrollToBottom() {
+  if (!autoScrollEnabled) return;
+  requestAnimationFrame(function() {
+    if (!dialogueContainer) return;
+    var targetScroll = dialogueContainer.scrollHeight - dialogueContainer.clientHeight;
+    var currentScroll = dialogueContainer.scrollTop;
+    var distanceToBottom = dialogueContainer.scrollHeight - dialogueContainer.clientHeight - currentScroll;
+    if (distanceToBottom > 50 && !forceAutoScroll) {
+      return;
+    }
+    dialogueContainer.scrollTo({
+      top: targetScroll,
+      behavior: 'smooth'
+    });
+  });
+}
+
+function forceScrollToBottom() {
+  forceAutoScroll = true;
+  requestAnimationFrame(function() {
+    if (!dialogueContainer) return;
+    dialogueContainer.scrollTo({
+      top: dialogueContainer.scrollHeight,
+      behavior: 'smooth'
+    });
+    setTimeout(function() {
+      forceAutoScroll = false;
+    }, 500);
+  });
+}
+
+// ============================================================
+//  SPEECH FUNCTIONS
+// ============================================================
+function pickVoice(gender) {
+  if (gender === 'male' && manualVoiceA) return manualVoiceA;
+  if (gender === 'female' && manualVoiceB) return manualVoiceB;
+  var enVoices = getEnVoices();
+  if (enVoices.length === 0) return null;
+  var maleNames = ['male', 'david', 'daniel', 'mark', 'fred', 'alex', 'guy', 'tom', 'george', 'oliver'];
+  var femaleNames = ['female', 'zira', 'samantha', 'victoria', 'susan', 'karen', 'moira', 'tessa', 'fiona', 'emma', 'ava', 'allison'];
+  var names = gender === 'male' ? maleNames : femaleNames;
+  var found = enVoices.find(function(v) { return names.some(function(n) { return v.name.toLowerCase().includes(n); }); });
+  if (found) return found;
+  return gender === 'male' ? enVoices[0] : (enVoices[1] || enVoices[0]);
+}
+
+function speak(text, speaker, btnEl, onEnd) {
+  if (!('speechSynthesis' in window)) {
+    if (onEnd) onEnd();
+    return;
+  }
+  window.speechSynthesis.cancel();
+  document.querySelectorAll('.speak-btn.speaking').forEach(function(b) { b.classList.remove('speaking'); });
+  document.querySelectorAll('.line.is-speaking').forEach(function(l) { l.classList.remove('is-speaking'); });
+  var lineEl = btnEl ? btnEl.closest('.line') : null;
+  var utter = new SpeechSynthesisUtterance(text);
+  utter.lang = 'en-US';
+  utter.rate = ttsRate;
+  var gender = speaker === 'B' ? 'female' : 'male';
+  var voice = pickVoice(gender);
+  if (voice) utter.voice = voice;
+  utter.pitch = gender === 'male' ? 0.85 : 1.2;
+  if (btnEl) btnEl.classList.add('speaking');
+  if (lineEl) lineEl.classList.add('is-speaking');
+  utter.onend = function() {
+    if (btnEl) btnEl.classList.remove('speaking');
+    if (lineEl) lineEl.classList.remove('is-speaking');
+    if (onEnd) onEnd();
+  };
+  window.speechSynthesis.speak(utter);
+  if (btnEl && !btnEl.classList.contains('mic-btn')) {
+    GAME.totalSpeaks++;
+    if (GAME.totalSpeaks % 3 === 0) addXP(2);
+    checkBadges();
+    saveGameState();
+  }
+}
+
+function speakCurrentLine() {
+  if (!autoSpeak || lineIdx < 0) return;
+  var scene = scenes[sceneIdx];
+  var line = scene.lines[lineIdx];
+  var btn = dialogueEl.querySelector('.speak-btn:not(.mic-btn)[data-line="' + lineIdx + '"]');
+  speak(line.en, line.speaker, btn);
+}
+
+// ============================================================
+//  RENDER FUNCTIONS
+// ============================================================
+function wrapWords(text) {
+  return String(text).split(/(\s+)/).map(function(tok) {
+    if (tok === '' || /^\s+$/.test(tok)) return escapeHtml(tok);
+    var clean = tok.replace(/[^\w'-]/g, '');
+    var safeTok = escapeHtml(tok);
+    if (!clean) return safeTok;
+    return '<span class="word" data-word="' + escapeHtml(clean) + '">' + safeTok + '</span>';
+  }).join('');
+}
+
+async function renderScene() {
+  var scene = scenes[sceneIdx];
+  topicTag.textContent = scene.topic;
+  sceneNum.textContent = 'Scene ' + pad(sceneIdx + 1) + ' / ' + pad(scenes.length);
+  
+  var html = '';
+  for (var idx = 0; idx < scene.lines.length; idx++) {
+    var l = scene.lines[idx];
+    var translatedText = l.km;
+    if (targetLang !== 'km') {
+      translatedText = await translateText(l.en, targetLang);
+    }
+    html += '<div class="line speaker-' + l.speaker.toLowerCase() + '" data-idx="' + idx + '">' +
+      '<div class="avatar">' + l.speaker + '</div>' +
+      '<div class="bubble-row">' +
+        '<div class="bubble">' +
+          '<p class="en">' + wrapWords(l.en) + '</p>' +
+          '<p class="km" id="km-' + idx + '">' + escapeHtml(translatedText) + '</p>' +
+        '</div>' +
+        '<button class="speak-btn" data-line="' + idx + '" title="អានប្រយោគនេះ">🔊</button>' +
+        '<button class="speak-btn mic-btn" data-line="' + idx + '" title="ថតសំឡេងអ្នក ដើម្បីប្រៀបធៀប">🎙️</button>' +
+      '</div>' +
+      '<div class="mic-playback" id="micPlayback-' + idx + '" style="display:none;"></div>' +
+    '</div>';
+  }
+  dialogueEl.innerHTML = html;
+
+  dialogueEl.querySelectorAll('.speak-btn:not(.mic-btn)').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      stopAutoPlay();
+      var idx = parseInt(btn.dataset.line, 10);
+      speak(scene.lines[idx].en, scene.lines[idx].speaker, btn);
+    });
+  });
+
+  dialogueEl.querySelectorAll('.mic-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() { toggleMicRecording(btn); });
+  });
+
+  dialogueEl.querySelectorAll('.word').forEach(function(w) {
+    w.addEventListener('click', function(e) {
+      e.stopPropagation();
+      showWordPopup(w);
+    });
+  });
+
+  refreshSceneSelect();
+  updateReveal();
+}
+
+function updateReveal() {
+  var els = dialogueEl.querySelectorAll('.line');
+  els.forEach(function(el, idx) {
+    el.classList.toggle('active', idx <= lineIdx);
+  });
+  var total = scenes[sceneIdx].lines.length;
+  progressBar.style.width = ((lineIdx + 1) / total * 100) + '%';
+  if (lineIdx >= 0) {
+    if (autoPlaying) {
+      forceScrollToBottom();
+    } else {
+      scrollToBottom();
+    }
+  }
+}
+
+function refreshSceneSelect() {
+  sceneSelect.innerHTML = scenes.map(function(s, i) {
+    return '<option value="' + i + '">' + pad(i + 1) + '. ' + escapeHtml(s.topic) + '</option>';
+  }).join('');
+  sceneSelect.value = sceneIdx;
+}
+
+// ============================================================
+//  VOICE SELECTION
+// ============================================================
+function populateVoiceSelects() {
+  var enVoices = getEnVoices();
+  var options = '<option value="">ស្វ័យប្រវត្តិ (Auto-detect)</option>' +
+    enVoices.map(function(v, i) {
+      return '<option value="' + i + '">' + escapeHtml(v.name) + ' (' + escapeHtml(v.lang) + ')</option>';
+    }).join('');
+  var prevA = voiceSelectA.value;
+  var prevB = voiceSelectB.value;
+  voiceSelectA.innerHTML = options;
+  voiceSelectB.innerHTML = options;
+  if (prevA) voiceSelectA.value = prevA;
+  if (prevB) voiceSelectB.value = prevB;
+}
+
+function loadVoices() {
+  voices = window.speechSynthesis.getVoices();
+  populateVoiceSelects();
+}
+
+if ('speechSynthesis' in window) {
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+  setTimeout(loadVoices, 100);
+}
+
+voiceSelectA.addEventListener('change', function() {
+  var enVoices = getEnVoices();
+  manualVoiceA = voiceSelectA.value === '' ? null : enVoices[parseInt(voiceSelectA.value, 10)];
+});
+voiceSelectB.addEventListener('change', function() {
+  var enVoices = getEnVoices();
+  manualVoiceB = voiceSelectB.value === '' ? null : enVoices[parseInt(voiceSelectB.value, 10)];
+});
+ttsRateSlider.addEventListener('input', function() {
+  ttsRate = parseFloat(ttsRateSlider.value);
+  ttsRateLabel.textContent = ttsRate.toFixed(2) + 'x';
+});
+
+// ============================================================
+//  MIC RECORDING
+// ============================================================
+function stopMicRecording() {
+  if (activeRecorder && activeRecorder.state === 'recording') {
+    activeRecorder.stop();
+  }
+  if (activeMicBtn) {
+    activeMicBtn.classList.remove('recording');
+    activeMicBtn.textContent = '🎙️';
+  }
+  clearTimeout(micAutoStopTimer);
+}
+
+async function startMicRecording(btn) {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    alert('កម្មវិធីរុករកនេះមិនគាំទ្រការថតសំឡេងទេ');
+    return;
+  }
+  if (activeRecorder && activeRecorder.state === 'recording') {
+    stopMicRecording();
+    return;
+  }
+  try {
+    var stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    var chunks = [];
+    var recorder = new MediaRecorder(stream);
+    activeRecorder = recorder;
+    activeMicBtn = btn;
+    recorder.ondataavailable = function(e) { if (e.data.size > 0) chunks.push(e.data); };
+    recorder.onstop = function() {
+      stream.getTracks().forEach(function(t) { t.stop(); });
+      var blob = new Blob(chunks, { type: recorder.mimeType || 'audio/webm' });
+      var url = URL.createObjectURL(blob);
+      var idx = btn.dataset.line;
+      var container = document.getElementById('micPlayback-' + idx);
+      if (container) {
+        var scene = scenes[sceneIdx];
+        var line = scene.lines[idx];
+        container.innerHTML = '<audio controls src="' + url + '"></audio>' +
+          '<button type="button" class="ghost mp-btn mp-tts">🔊 ស្តាប់ TTS</button>' +
+          '<button type="button" class="ghost mp-btn mp-clear">✕</button>';
+        container.style.display = 'flex';
+        container.querySelector('.mp-tts').addEventListener('click', function() { speak(line.en, line.speaker, null); });
+        container.querySelector('.mp-clear').addEventListener('click', function() {
+          URL.revokeObjectURL(url);
+          container.innerHTML = '';
+          container.style.display = 'none';
+        });
+      }
+      activeRecorder = null;
+      activeMicBtn = null;
+      GAME.totalMics++;
+      if (GAME.totalMics % 2 === 0) addXP(3);
+      checkBadges();
+      saveGameState();
+    };
+    recorder.start();
+    btn.classList.add('recording');
+    btn.textContent = '⏹';
+    micAutoStopTimer = setTimeout(stopMicRecording, 6000);
+  } catch (err) {
+    alert('មិនអាចចូលប្រើមីក្រូហ្វូនបានទេ — សូមអនុញ្ញាតសិទ្ធិ mic ក្នុង browser');
+  }
+}
+
+function toggleMicRecording(btn) {
+  if (btn.classList.contains('recording')) {
+    stopMicRecording();
+  } else {
+    startMicRecording(btn);
+  }
+}
+
+// ============================================================
+//  WORD POPUP
+// ============================================================
+function showWordPopup(wordEl) {
+  var word = wordEl.dataset.word;
+  if (!word) return;
+
+  window.speechSynthesis.cancel();
+  document.querySelectorAll('.speak-btn.speaking').forEach(function(b) { b.classList.remove('speaking'); });
+  document.querySelectorAll('.line.is-speaking').forEach(function(l) { l.classList.remove('is-speaking'); });
+  var wu = new SpeechSynthesisUtterance(word);
+  wu.lang = 'en-US';
+  wu.rate = Math.max(0.5, ttsRate - 0.15);
+  window.speechSynthesis.speak(wu);
+
+  var rect = wordEl.getBoundingClientRect();
+  var popW = 230;
+  wordPopup.style.left = Math.max(8, Math.min(rect.left, window.innerWidth - popW - 8)) + 'px';
+  wordPopup.style.top = (rect.bottom + 8) + 'px';
+  wordPopup.innerHTML = '<div class="wp-word">' + escapeHtml(word) + '</div><div class="wp-def">កំពុងស្វែងរកន័យ...</div>';
+  wordPopup.classList.add('show');
+
+  if (popupAbortController) popupAbortController.abort();
+  popupAbortController = new AbortController();
+  fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + encodeURIComponent(word.toLowerCase()), { signal: popupAbortController.signal })
+    .then(function(r) { return r.ok ? r.json() : Promise.reject(); })
+    .then(function(data) {
+      var entry = data[0] || {};
+      var phonetic = entry.phonetic || ((entry.phonetics || []).find(function(p) { return p.text; }) || {}).text || '';
+      var meaning = (entry.meanings || [])[0] || {};
+      var pos = meaning.partOfSpeech || '';
+      var def = (meaning.definitions || [])[0]?.definition || '';
+      wordPopup.innerHTML = '<div class="wp-word">' + escapeHtml(word) + (phonetic ? '<span class="wp-phon">' + escapeHtml(phonetic) + '</span>' : '') + '</div>' +
+        (pos ? '<div class="wp-pos">' + escapeHtml(pos) + '</div>' : '') +
+        '<div class="wp-def">' + (def ? escapeHtml(def) : 'គ្មានន័យរកឃើញទេ') + '</div>';
+    })
+    .catch(function() {
+      wordPopup.innerHTML = '<div class="wp-word">' + escapeHtml(word) + '</div><div class="wp-def">មិនអាចរកន័យបានទេ (offline ឬពាក្យនេះមិនមានក្នុងវចនានុក្រម)</div>';
+    });
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.word') && !e.target.closest('.word-popup')) {
+    wordPopup.classList.remove('show');
+  }
+});
+
+// ============================================================
+//  AUTO-PLAY
+// ============================================================
+function stopAutoPlay() {
+  if (!autoPlaying) return;
+  autoPlaying = false;
+  document.body.classList.remove('auto-playing');
+  window.speechSynthesis.cancel();
+  autoPlayBtn.textContent = '▶ លេងស្វ័យប្រវត្តិ (Auto-play)';
+  if (bgMusic.src) fadeMusic(0, 500);
+}
+
+function autoPlayStep() {
+  if (!autoPlaying) return;
+  var scene = scenes[sceneIdx];
+  var delay = getLineDelay();
+  if (lineIdx < scene.lines.length - 1) {
+    lineIdx++;
+    updateReveal();
+    GAME.totalLinesRevealed++;
+    if (GAME.totalLinesRevealed % 5 === 0) addXP(2);
+    checkBadges();
+    saveGameState();
+    setTimeout(function() { forceScrollToBottom(); }, 50);
+    var line = scene.lines[lineIdx];
+    var btn = dialogueEl.querySelector('.speak-btn:not(.mic-btn)[data-line="' + lineIdx + '"]');
+    speak(line.en, line.speaker, btn, function() {
+      if (!autoPlaying) return;
+      setTimeout(autoPlayStep, delay);
+    });
+  } else {
+    GAME.totalScenesCompleted++;
+    if (GAME.totalScenesCompleted % 2 === 0) addXP(5);
+    checkBadges();
+    saveGameState();
+    var target = parseFloat(musicVolume.value);
+    if (bgMusic.src) fadeMusic(target * 0.3, 400);
+    setTimeout(function() {
+      if (!autoPlaying) return;
+      sceneIdx = (sceneIdx + 1) % scenes.length;
+      lineIdx = -1;
+      renderScene();
+      if (bgMusic.src) fadeMusic(target, 600);
+      setTimeout(autoPlayStep, delay * 1.27);
+    }, delay * 2.4);
+  }
+}
+
+function startAutoPlay() {
+  if (autoPlaying) return;
+  autoPlayBtn.disabled = true;
+  document.body.classList.add('auto-playing');
+  var count = 3;
+  countdownOverlay.style.display = 'flex';
+  countdownNum.textContent = count;
+  countdownLabel.textContent = 'រៀបចំ...';
+  var tick = setInterval(function() {
+    count--;
+    if (count > 0) {
+      countdownNum.textContent = count;
+    } else {
+      clearInterval(tick);
+      countdownOverlay.style.display = 'none';
+      autoPlayBtn.disabled = false;
+      autoPlaying = true;
+      autoPlayBtn.textContent = '⏸ ឈប់ (Pause)';
+      if (bgMusic.src) fadeMusic(parseFloat(musicVolume.value), 700);
+      autoPlayStep();
+    }
+  }, 800);
+}
+
+// ============================================================
+//  BACKGROUND MUSIC
+// ============================================================
+function fadeMusic(targetVol, duration) {
+  if (!bgMusic.src) return;
+  clearInterval(fadeInterval);
+  if (targetVol > 0 && bgMusic.paused) bgMusic.play();
+  var startVol = bgMusic.volume;
+  var steps = 20;
+  var stepTime = duration / steps;
+  var i = 0;
+  fadeInterval = setInterval(function() {
+    i++;
+    bgMusic.volume = Math.max(0, Math.min(1, startVol + (targetVol - startVol) * (i / steps)));
+    if (i >= steps) {
+      clearInterval(fadeInterval);
+      if (targetVol <= 0.001) bgMusic.pause();
+    }
+  }, stepTime);
+}
+
+musicFileInput.addEventListener('change', function(e) {
+  var file = e.target.files[0];
+  if (!file) return;
+  var url = URL.createObjectURL(file);
+  bgMusic.src = url;
+  musicControls.style.display = 'flex';
+  musicHint.textContent = 'បានផ្ទុក៖ ' + file.name + ' — ចុច "ចាក់ភ្លេង" ដើម្បីចាប់ផ្តើម';
+});
+
+musicToggle.addEventListener('click', function() {
+  if (bgMusic.paused) {
+    bgMusic.volume = parseFloat(musicVolume.value);
+    bgMusic.play();
+    musicToggle.textContent = '⏸ ផ្អាកភ្លេង';
+    musicToggle.classList.add('playing');
+  } else {
+    bgMusic.pause();
+    musicToggle.textContent = '▶ ចាក់ភ្លេង';
+    musicToggle.classList.remove('playing');
+  }
+});
+
+musicVolume.addEventListener('input', function() {
+  bgMusic.volume = parseFloat(musicVolume.value);
+  musicVolLabel.textContent = Math.round(bgMusic.volume * 100) + '%';
+});
+
+// ============================================================
+//  QUIZ
+// ============================================================
+function closeQuiz() {
+  quizOverlay.classList.remove('show');
+  var fn = pendingAfterQuiz;
+  pendingAfterQuiz = null;
+  if (fn) fn();
+}
+
+function maybeShowQuiz(afterFn) {
+  var scene = scenes[sceneIdx];
+  if (!scene.lines || scene.lines.length < 2) { afterFn(); return; }
+  var qIdx = Math.floor(Math.random() * scene.lines.length);
+  var correct = scene.lines[qIdx];
+  var pool = scene.lines.filter(function(_, i) { return i !== qIdx; }).map(function(l) { return l.en; });
+  if (pool.length < 3) {
+    var others = scenes.flatMap(function(s) { return s.lines.map(function(l) { return l.en; }); }).filter(function(en) { return en !== correct.en && !pool.includes(en); });
+    while (pool.length < 3 && others.length) {
+      pool.push(others.splice(Math.floor(Math.random() * others.length), 1)[0]);
+    }
+  }
+  var options = shuffle([correct.en, ...pool.slice(0, 3)]);
+  quizPrompt.textContent = correct.km;
+  quizOptions.innerHTML = '';
+  pendingAfterQuiz = afterFn;
+  options.forEach(function(optText) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'ghost quiz-opt';
+    btn.textContent = optText;
+    btn.addEventListener('click', function() {
+      var isCorrect = optText === correct.en;
+      btn.classList.add(isCorrect ? 'correct' : 'wrong');
+      if (!isCorrect) {
+        [...quizOptions.children].forEach(function(b) { if (b.textContent === correct.en) b.classList.add('correct'); });
+      }
+      quizOptions.querySelectorAll('button').forEach(function(b) { b.disabled = true; });
+      if (isCorrect) {
+        GAME.totalQuizzesCorrect++;
+        addXP(5);
+        addPoints(3);
+        checkBadges();
+        saveGameState();
+      }
+      setTimeout(closeQuiz, 1100);
+    });
+    quizOptions.appendChild(btn);
+  });
+  quizOverlay.classList.add('show');
+}
+
+quizSkipBtn.addEventListener('click', closeQuiz);
+
+// ============================================================
+//  THEME
+// ============================================================
+var themeDefaults = {
+  colorGold: '#b8863f',
+  colorJade: '#3f6355',
+  colorLac: '#a8412f',
+  colorPaper: '#f2ede2',
+  colorPanel: '#fffdf8',
+  colorAbg: '#e9e2d2',
+  colorBbg: '#dfe8e2',
+};
+var colorVarMap = {
+  colorGold: '--gold',
+  colorJade: '--jade',
+  colorLac: '--lac',
+  colorPaper: '--paper',
+  colorPanel: '--panel',
+  colorAbg: '--a-bg',
+  colorBbg: '--b-bg',
+};
+var lightExtras = { '--ink': '#2b2320', '--muted': '#7a6c60', '--line': 'rgba(43,35,32,0.14)' };
+var darkExtras = { '--ink': '#f2ede2', '--muted': '#b8ab9d', '--line': 'rgba(255,253,248,0.16)' };
+var darkColors = {
+  colorGold: '#d9a75c', colorJade: '#5a9484', colorLac: '#e2725a',
+  colorPaper: '#1b1815', colorPanel: '#242019', colorAbg: '#2f2a24', colorBbg: '#233029',
+};
+
+var darkMode = false;
+var bgImageUrl = null;
+
+function applyDarkMode(on) {
+  darkMode = on;
+  var colors = on ? darkColors : themeDefaults;
+  var extras = on ? darkExtras : lightExtras;
+  Object.keys(colorVarMap).forEach(function(id) {
+    document.getElementById(id).value = colors[id];
+    document.documentElement.style.setProperty(colorVarMap[id], colors[id]);
+  });
+  Object.entries(extras).forEach(function(entry) {
+    document.documentElement.style.setProperty(entry[0], entry[1]);
+  });
+  document.getElementById('darkModeBtn').textContent = on ? '☀️ Light Mode' : '🌙 Dark Mode';
+}
+
+function removeBgImage() {
+  if (bgImageUrl) URL.revokeObjectURL(bgImageUrl);
+  bgImageUrl = null;
+  document.body.classList.remove('has-bg-image');
+  document.getElementById('bgImageControls').style.display = 'none';
+  document.getElementById('bgImageFile').value = '';
+}
+
+// ============================================================
+//  EVENT LISTENERS
+// ============================================================
+sceneSelect.addEventListener('change', function() {
+  stopAutoPlay();
+  window.speechSynthesis.cancel();
+  sceneIdx = parseInt(sceneSelect.value, 10);
+  lineIdx = -1;
+  renderScene();
+});
+
+document.getElementById('autoPlayBtn').addEventListener('click', function() {
+  if (autoPlaying) stopAutoPlay();
+  else startAutoPlay();
+});
+
+document.getElementById('autoSpeakBtn').addEventListener('click', function(e) {
+  autoSpeak = !autoSpeak;
+  e.target.textContent = autoSpeak ? '🔊 អានពេលចុចដៃ: បើក' : '🔇 អានពេលចុចដៃ: បិទ';
+  e.target.classList.toggle('active', autoSpeak);
+  if (!autoSpeak) window.speechSynthesis.cancel();
+});
+
+document.getElementById('nextLineBtn').addEventListener('click', function() {
+  stopAutoPlay();
+  var total = scenes[sceneIdx].lines.length;
+  if (lineIdx < total - 1) {
+    lineIdx++;
+    updateReveal();
+    GAME.totalLinesRevealed++;
+    if (GAME.totalLinesRevealed % 5 === 0) addXP(2);
+    checkBadges();
+    saveGameState();
+    setTimeout(function() { forceScrollToBottom(); }, 50);
+    speakCurrentLine();
+  } else {
+    maybeShowQuiz(function() {
+      sceneIdx = (sceneIdx + 1) % scenes.length;
+      lineIdx = -1;
+      renderScene();
+    });
+  }
+});
+
+document.getElementById('nextSceneBtn').addEventListener('click', function() {
+  stopAutoPlay();
+  window.speechSynthesis.cancel();
+  sceneIdx = (sceneIdx + 1) % scenes.length;
+  lineIdx = -1;
+  renderScene();
+});
+
+document.getElementById('prevBtn').addEventListener('click', function() {
+  stopAutoPlay();
+  window.speechSynthesis.cancel();
+  if (lineIdx > -1) {
+    lineIdx--;
+    updateReveal();
+  } else {
+    sceneIdx = (sceneIdx - 1 + scenes.length) % scenes.length;
+    lineIdx = scenes[sceneIdx].lines.length - 1;
+    renderScene();
+  }
+});
+
+lineDelaySlider.addEventListener('input', function() {
+  lineDelayLabel.textContent = parseFloat(lineDelaySlider.value).toFixed(2) + 's';
+});
+
+document.getElementById('translateLangSelect').addEventListener('change', function() {
+  targetLang = this.value;
+  renderScene();
+});
+
+// ============================================================
+//  FULLSCREEN
+// ============================================================
+document.getElementById('fsBtn').addEventListener('click', function() {
+  if (!document.fullscreenElement) {
+    (appRoot.requestFullscreen || appRoot.webkitRequestFullscreen)?.call(appRoot);
+  } else {
+    (document.exitFullscreen || document.webkitExitFullscreen)?.call(document);
+  }
+});
+document.addEventListener('fullscreenchange', function() {
+  document.getElementById('fsBtn').textContent = document.fullscreenElement ? '⤢' : '⛶';
+});
+
+// ============================================================
+//  THEME PANEL
+// ============================================================
+document.getElementById('themeBtn').addEventListener('click', function() {
+  var panel = document.getElementById('themePanel');
+  panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+});
+
+Object.keys(colorVarMap).forEach(function(id) {
+  document.getElementById(id).addEventListener('input', function() {
+    document.documentElement.style.setProperty(colorVarMap[id], this.value);
+  });
+});
+
+document.getElementById('resetThemeBtn').addEventListener('click', function() {
+  Object.keys(colorVarMap).forEach(function(id) {
+    document.getElementById(id).value = themeDefaults[id];
+    document.documentElement.style.setProperty(colorVarMap[id], themeDefaults[id]);
+  });
+  darkMode = false;
+  document.documentElement.style.setProperty('--ink', lightExtras['--ink']);
+  document.documentElement.style.setProperty('--muted', lightExtras['--muted']);
+  document.documentElement.style.setProperty('--line', lightExtras['--line']);
+  document.getElementById('darkModeBtn').textContent = '🌙 Dark Mode';
+  removeBgImage();
+});
+
+document.getElementById('darkModeBtn').addEventListener('click', function() { applyDarkMode(!darkMode); });
+
+// ============================================================
+//  BACKGROUND IMAGE
+// ============================================================
+document.getElementById('bgImageFile').addEventListener('change', function(e) {
+  var file = e.target.files[0];
+  if (!file) return;
+  if (bgImageUrl) URL.revokeObjectURL(bgImageUrl);
+  bgImageUrl = URL.createObjectURL(file);
+  document.documentElement.style.setProperty('--custom-bg-image', 'url(' + bgImageUrl + ')');
+  document.body.classList.add('has-bg-image');
+  document.getElementById('bgImageControls').style.display = 'flex';
+});
+
+document.getElementById('removeBgImageBtn').addEventListener('click', removeBgImage);
+
+// ============================================================
+//  SETTINGS IMPORT/EXPORT
+// ============================================================
+function collectSettings() {
+  var colors = {};
+  Object.keys(colorVarMap).forEach(function(id) { colors[id] = document.getElementById(id).value; });
+  return {
+    darkMode: darkMode,
+    colors: colors,
+    ink: getComputedStyle(document.documentElement).getPropertyValue('--ink').trim(),
+    muted: getComputedStyle(document.documentElement).getPropertyValue('--muted').trim(),
+    line: getComputedStyle(document.documentElement).getPropertyValue('--line').trim(),
+    lineDelay: parseFloat(lineDelaySlider.value),
+    ttsRate: ttsRate,
+    autoSpeak: autoSpeak,
+    watermarkOn: document.getElementById('watermarkToggleBtn').textContent.includes('បើក'),
+    watermarkPos: document.getElementById('watermarkPosSelect').value,
+    targetLang: targetLang,
+    voiceAName: manualVoiceA ? manualVoiceA.name : '',
+    voiceALang: manualVoiceA ? manualVoiceA.lang : '',
+    voiceBName: manualVoiceB ? manualVoiceB.name : '',
+    voiceBLang: manualVoiceB ? manualVoiceB.lang : '',
+  };
+}
+
+function applySettings(s) {
+  if (!s || typeof s !== 'object') return;
+  if (typeof s.darkMode === 'boolean') {
+    applyDarkMode(s.darkMode);
+  }
+  if (s.colors) {
+    Object.keys(colorVarMap).forEach(function(id) {
+      if (s.colors[id]) {
+        document.getElementById(id).value = s.colors[id];
+        document.documentElement.style.setProperty(colorVarMap[id], s.colors[id]);
+      }
+    });
+  }
+  if (s.ink) document.documentElement.style.setProperty('--ink', s.ink);
+  if (s.muted) document.documentElement.style.setProperty('--muted', s.muted);
+  if (s.line) document.documentElement.style.setProperty('--line', s.line);
+  if (typeof s.lineDelay === 'number') {
+    lineDelaySlider.value = s.lineDelay;
+    lineDelayLabel.textContent = s.lineDelay.toFixed(2) + 's';
+  }
+  if (typeof s.ttsRate === 'number') {
+    ttsRate = s.ttsRate;
+    ttsRateSlider.value = s.ttsRate;
+    ttsRateLabel.textContent = s.ttsRate.toFixed(2) + 'x';
+  }
+  if (typeof s.autoSpeak === 'boolean') {
+    autoSpeak = s.autoSpeak;
+    document.getElementById('autoSpeakBtn').textContent = autoSpeak ? '🔊 អានពេលចុចដៃ: បើក' : '🔇 អានពេលចុចដៃ: បិទ';
+    document.getElementById('autoSpeakBtn').classList.toggle('active', autoSpeak);
+  }
+  if (typeof s.watermarkOn === 'boolean') {
+    var wmOn = s.watermarkOn;
+    document.getElementById('watermarkToggleBtn').textContent = wmOn ? '🏷 Watermark: បើក' : '🏷 Watermark: បិទ';
+    document.getElementById('watermarkToggleBtn').classList.toggle('active', wmOn);
+    document.getElementById('watermark').classList.toggle('hidden', !wmOn);
+  }
+  if (s.watermarkPos && watermarkPositions[s.watermarkPos]) {
+    document.getElementById('watermarkPosSelect').value = s.watermarkPos;
+    Object.assign(document.getElementById('watermark').style, watermarkPositions[s.watermarkPos]);
+  }
+  if (typeof s.targetLang === 'string' && document.getElementById('translateLangSelect').querySelector('option[value="' + s.targetLang + '"]')) {
+    targetLang = s.targetLang;
+    document.getElementById('translateLangSelect').value = s.targetLang;
+  }
+  var enVoices = getEnVoices();
+  if (s.voiceAName) {
+    var matchA = enVoices.find(function(v) { return v.name === s.voiceAName && v.lang === s.voiceALang; });
+    if (matchA) manualVoiceA = matchA;
+  }
+  if (s.voiceBName) {
+    var matchB = enVoices.find(function(v) { return v.name === s.voiceBName && v.lang === s.voiceBLang; });
+    if (matchB) manualVoiceB = matchB;
+  }
+  populateVoiceSelects();
+  if (manualVoiceA) {
+    var idxA = enVoices.indexOf(manualVoiceA);
+    if (idxA >= 0) voiceSelectA.value = idxA;
+  }
+  if (manualVoiceB) {
+    var idxB = enVoices.indexOf(manualVoiceB);
+    if (idxB >= 0) voiceSelectB.value = idxB;
+  }
+}
+
+document.getElementById('exportSettingsBtn').addEventListener('click', function() {
+  var blob = new Blob([JSON.stringify(collectSettings(), null, 2)], { type: 'application/json' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'english-share-settings.json';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(function() { URL.revokeObjectURL(url); }, 2000);
+});
+
+document.getElementById('importSettingsBtn').addEventListener('click', function() {
+  document.getElementById('importSettingsFile').click();
+});
+
+document.getElementById('importSettingsFile').addEventListener('change', function(e) {
+  var file = e.target.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function() {
+    try {
+      applySettings(JSON.parse(reader.result));
+      renderScene();
+    } catch (err) {
+      alert('⚠ JSON មិនត្រឹមត្រូវ — សូមពិនិត្យឯកសារ');
+    }
+    document.getElementById('importSettingsFile').value = '';
+  };
+  reader.readAsText(file);
+});
+
+// ============================================================
+//  TOGGLE FUNCTIONS
+// ============================================================
+function toggleHeader() {
+  headerHidden = !headerHidden;
+  var header = document.getElementById('gamificationHeader');
+  var badges = document.getElementById('badgeCollection');
+  var btn = document.getElementById('hideHeaderBtn');
+  if (headerHidden) {
+    header.classList.add('hidden');
+    badges.classList.add('hidden');
+    btn.classList.add('active');
+    btn.title = 'Show header';
+  } else {
+    header.classList.remove('hidden');
+    badges.classList.remove('hidden');
+    btn.classList.remove('active');
+    btn.title = 'Hide header';
+  }
+}
+
+function toggleCleanScreen() {
+  cleanScreenMode = !cleanScreenMode;
+  var body = document.body;
+  if (cleanScreenMode) {
+    body.classList.add('clean-screen');
+    if (!settingsHidden) {
+      settingsHidden = true;
+      document.querySelector('.card').classList.add('focus-mode');
+      document.getElementById('hideSettingsBtn').classList.add('active');
+      document.getElementById('hideSettingsBtn').textContent = '👁';
+      document.getElementById('hideSettingsBtn').title = 'Show settings';
+    }
+    if (!headerHidden) {
+      toggleHeader();
+    }
+    document.getElementById('hideHeaderBtn').textContent = '🧹';
+    document.getElementById('hideHeaderBtn').title = 'Exit clean screen';
+  } else {
+    body.classList.remove('clean-screen');
+    settingsHidden = false;
+    document.querySelector('.card').classList.remove('focus-mode');
+    document.getElementById('hideSettingsBtn').classList.remove('active');
+    document.getElementById('hideSettingsBtn').textContent = '⚙';
+    document.getElementById('hideSettingsBtn').title = 'Hide settings';
+    if (headerHidden) {
+      toggleHeader();
+    }
+    document.getElementById('hideHeaderBtn').textContent = '👤';
+    document.getElementById('hideHeaderBtn').title = 'Hide header';
+  }
+}
+
+// ============================================================
+//  HIDE HEADER & SETTINGS
+// ============================================================
+document.getElementById('hideHeaderBtn').addEventListener('click', toggleHeader);
+
+document.getElementById('hideSettingsBtn').addEventListener('click', function() {
+  if (cleanScreenMode) {
+    cleanScreenMode = false;
+    document.body.classList.remove('clean-screen');
+    document.getElementById('hideHeaderBtn').textContent = '👤';
+    document.getElementById('hideHeaderBtn').title = 'Hide header';
+  }
+  settingsHidden = !settingsHidden;
+  document.querySelector('.card').classList.toggle('focus-mode', settingsHidden);
+  this.classList.toggle('active', settingsHidden);
+  this.textContent = settingsHidden ? '👁' : '⚙';
+  this.title = settingsHidden ? 'បង្ហាញការកំណត់' : 'លាក់ការកំណត់';
+});
+
+// ============================================================
+//  RECORD BUTTON
+// ============================================================
+document.getElementById('recordBtn').addEventListener('click', function() {
+  sceneIdx = 0;
+  lineIdx = -1;
+  renderScene();
+  if (!settingsHidden) {
+    settingsHidden = true;
+    document.querySelector('.card').classList.add('focus-mode');
+    document.getElementById('hideSettingsBtn').classList.add('active');
+    document.getElementById('hideSettingsBtn').textContent = '👁';
+  }
+
+  function goFullscreenAndPlay() {
+    countdownLabel.textContent = '';
+    var fsResult;
+    try {
+      fsResult = (appRoot.requestFullscreen || appRoot.webkitRequestFullscreen)?.call(appRoot);
+    } catch (err) { fsResult = null; }
+    Promise.resolve(fsResult).catch(function() {}).finally(function() {
+      setTimeout(startAutoPlay, 300);
+    });
+  }
+
+  var seconds = Math.max(0, parseInt(document.getElementById('preRollSeconds').value, 10) || 0);
+  if (seconds <= 0) {
+    goFullscreenAndPlay();
+    return;
+  }
+
+  countdownLabel.textContent = 'រៀបចំកម្មវិធីថតអេក្រង់របស់អ្នក...';
+  countdownNum.textContent = seconds;
+  countdownOverlay.style.display = 'flex';
+  var preRollTick = setInterval(function() {
+    seconds--;
+    if (seconds > 0) {
+      countdownNum.textContent = seconds;
+    } else {
+      clearInterval(preRollTick);
+      countdownOverlay.style.display = 'none';
+      goFullscreenAndPlay();
+    }
+  }, 1000);
+});
+
+// ============================================================
+//  WATERMARK
+// ============================================================
+var watermarkPositions = {
+  br: { top: '', bottom: '14px', left: '', right: '14px' },
+  bl: { top: '', bottom: '14px', left: '14px', right: '' },
+  tr: { top: '14px', bottom: '', left: '', right: '14px' },
+  tl: { top: '14px', bottom: '', left: '14px', right: '' },
+};
+
+document.getElementById('watermarkToggleBtn').addEventListener('click', function() {
+  var isOn = this.textContent.includes('បើក');
+  var newOn = !isOn;
+  this.textContent = newOn ? '🏷 Watermark: បើក' : '🏷 Watermark: បិទ';
+  this.classList.toggle('active', newOn);
+  this.classList.toggle('inactive', !newOn);
+  document.getElementById('watermark').classList.toggle('hidden', !newOn);
+});
+
+document.getElementById('watermarkPosSelect').addEventListener('change', function() {
+  var pos = watermarkPositions[this.value] || watermarkPositions.br;
+  Object.assign(document.getElementById('watermark').style, pos);
+});
+
+// ============================================================
+//  SCENE MANAGER
+// ============================================================
+document.getElementById('sceneManagerBtn').addEventListener('click', function() {
+  var panel = document.getElementById('scenePanel');
+  panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+});
+
+function addLineRow(speaker, en, km) {
+  var container = document.getElementById('newSceneLines');
+  var row = document.createElement('div');
+  row.className = 'line-row';
+  var s = speaker === 'B' ? 'B' : 'A';
+  row.innerHTML = '<select class="row-speaker">' +
+    '<option value="A"' + (s === 'A' ? ' selected' : '') + '>A</option>' +
+    '<option value="B"' + (s === 'B' ? ' selected' : '') + '>B</option>' +
+    '</select>' +
+    '<input type="text" class="row-en" placeholder="English sentence" value="' + escapeHtml(en || '') + '">' +
+    '<input type="text" class="row-km" placeholder="ប្រយោគខ្មែរ" value="' + escapeHtml(km || '') + '">' +
+    '<button type="button" class="ghost row-remove" title="លុប">✕</button>';
+  row.querySelector('.row-remove').addEventListener('click', function() { row.remove(); });
+  container.appendChild(row);
+}
+
+document.getElementById('addLineRowBtn').addEventListener('click', function() { addLineRow(); });
+addLineRow();
+
+document.getElementById('saveSceneBtn').addEventListener('click', function() {
+  var topic = document.getElementById('newSceneTopic').value.trim();
+  var rows = [...document.getElementById('newSceneLines').querySelectorAll('.line-row')];
+  var lines = rows.map(function(r) {
+    return {
+      speaker: r.querySelector('.row-speaker').value,
+      en: r.querySelector('.row-en').value.trim(),
+      km: r.querySelector('.row-km').value.trim(),
+    };
+  }).filter(function(l) { return l.en && l.km; });
+
+  if (!topic || lines.length === 0) {
+    document.getElementById('sceneManagerHint').textContent = '⚠ សូមបំពេញប្រធានបទ និងយ៉ាងហោចណាស់មួយបន្ទាត់ (EN + KM)';
+    return;
+  }
+  scenes.push({ topic: topic, lines: lines });
+  document.getElementById('sceneManagerHint').textContent = '✅ បានបន្ថែម Scene "' + topic + '" ដោយជោគជ័យ!';
+  document.getElementById('newSceneTopic').value = '';
+  document.getElementById('newSceneLines').innerHTML = '';
+  addLineRow();
+  sceneIdx = scenes.length - 1;
+  lineIdx = -1;
+  renderScene();
+  addPoints(5);
+});
+
+document.getElementById('importJsonBtn').addEventListener('click', function() {
+  var data;
+  try {
+    data = JSON.parse(document.getElementById('jsonImportArea').value);
+  } catch (err) {
+    document.getElementById('sceneManagerHint').textContent = '⚠ JSON មិនត្រឹមត្រូវ — សូមពិនិត្យទម្រង់';
+    return;
+  }
+  var arr = Array.isArray(data) ? data : [data];
+  var added = 0;
+  arr.forEach(function(item) {
+    if (item && item.topic && Array.isArray(item.lines)) {
+      var cleanLines = item.lines
+        .filter(function(l) { return l && l.en && l.km; })
+        .map(function(l) { return { speaker: l.speaker === 'B' ? 'B' : 'A', en: String(l.en), km: String(l.km) }; });
+      if (cleanLines.length) {
+        scenes.push({ topic: String(item.topic), lines: cleanLines });
+        added++;
+      }
+    }
+  });
+  if (added === 0) {
+    document.getElementById('sceneManagerHint').textContent = '⚠ រកមិនឃើញ Scene ត្រឹមត្រូវទេ — ពិនិត្យ topic/lines/en/km';
+    return;
+  }
+  document.getElementById('sceneManagerHint').textContent = '✅ បាននាំចូល ' + added + ' Scene ដោយជោគជ័យ!';
+  document.getElementById('jsonImportArea').value = '';
+  sceneIdx = scenes.length - 1;
+  lineIdx = -1;
+  renderScene();
+  addPoints(added * 2);
+});
+
+// ============================================================
+//  SUBTITLE EXPORT
+// ============================================================
+function formatSrtTime(totalSeconds) {
+  var clamped = Math.max(0, totalSeconds);
+  var ms = Math.round((clamped % 1) * 1000);
+  var totalWhole = Math.floor(clamped);
+  var h = Math.floor(totalWhole / 3600);
+  var m = Math.floor((totalWhole % 3600) / 60);
+  var s = totalWhole % 60;
+  var p2 = function(n) { return String(n).padStart(2, '0'); };
+  var p3 = function(n) { return String(n).padStart(3, '0'); };
+  return p2(h) + ':' + p2(m) + ':' + p2(s) + ',' + p3(ms);
+}
+
+function estimateLineDuration(text) {
+  var words = text.trim().split(/\s+/).filter(Boolean).length;
+  var wordsPerSecond = 2.25;
+  return Math.max(1.2, words / wordsPerSecond);
+}
+
+function generateSRT() {
+  var delay = getLineDelay() / 1000;
+  var t = 0.5;
+  var idx = 1;
+  var srt = '';
+  scenes.forEach(function(scene, sIdx) {
+    scene.lines.forEach(function(line, lIdx) {
+      var dur = estimateLineDuration(line.en);
+      var start = t;
+      var end = t + dur;
+      srt += idx + '\n' + formatSrtTime(start) + ' --> ' + formatSrtTime(end) + '\n' + line.en + '\n' + line.km + '\n\n';
+      idx++;
+      t = end + delay;
+      if (lIdx === scene.lines.length - 1 && sIdx !== scenes.length - 1) {
+        t += delay * 3.67;
+      }
+    });
+  });
+  return srt;
+}
+
+document.getElementById('exportSrtBtn').addEventListener('click', function() {
+  var blob = new Blob([generateSRT()], { type: 'text/plain;charset=utf-8' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'english-share-subtitles.srt';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(function() { URL.revokeObjectURL(url); }, 2000);
+});
+
+// ============================================================
+//  KEYBOARD SHORTCUTS
+// ============================================================
+document.addEventListener('keydown', function(e) {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
+  switch (e.key.toLowerCase()) {
+    case 'h': e.preventDefault(); toggleHeader(); break;
+    case 's': e.preventDefault(); document.getElementById('hideSettingsBtn').click(); break;
+    case 'c': e.preventDefault(); toggleCleanScreen(); break;
+  }
+});
+
+// ============================================================
+//  SWIPE GESTURES
+// ============================================================
+var swipeTarget = document.getElementById('conversationSection');
+var touchStartX = 0;
+var touchStartY = 0;
+swipeTarget.addEventListener('touchstart', function(e) {
+  var t = e.changedTouches[0];
+  touchStartX = t.clientX;
+  touchStartY = t.clientY;
+}, { passive: true });
+swipeTarget.addEventListener('touchend', function(e) {
+  var t = e.changedTouches[0];
+  var dx = t.clientX - touchStartX;
+  var dy = t.clientY - touchStartY;
+  if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+    if (dx < 0) {
+      document.getElementById('nextLineBtn').click();
+    } else {
+      document.getElementById('prevBtn').click();
+    }
+  }
+}, { passive: true });
+
+// ============================================================
+//  INITIALIZATION
+// ============================================================
+loadGameState();
+updateStreak();
+startSessionTimer();
+
+// Apply initial watermark position
+Object.assign(watermarkEl.style, watermarkPositions.br);
+
+// Set initial watermark toggle state
+var initialWmOn = document.getElementById('watermarkToggleBtn').textContent.includes('បើក');
+document.getElementById('watermarkToggleBtn').classList.toggle('active', initialWmOn);
+
+// Render initial scene
+renderScene();
+
+// Update gamification UI
+updateGamificationUI();
+
+// ============================================================
+//  CLEANUP
+// ============================================================
+window.addEventListener('beforeunload', function() {
+  window.speechSynthesis.cancel();
+  if (bgImageUrl) URL.revokeObjectURL(bgImageUrl);
+  if (fadeInterval) clearInterval(fadeInterval);
+  if (GAME.sessionTimer) clearInterval(GAME.sessionTimer);
+  saveGameState();
+});
+</script>
+</body>
+</html>

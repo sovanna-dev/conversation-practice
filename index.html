@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Everyday Conversations — English Lesson</title>
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Khmer:wght@400;600;700&family=Noto+Sans+Khmer:wght@400;500;600&family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<!-- CSS -->
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/components.css">
+<link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+<div class="app" id="appRoot">
+
+  <!-- ============================================================ -->
+  <!-- HEADER SECTION                                                -->
+  <!-- ============================================================ -->
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-mark">
+        <img src="image/logo_ES.jpg" alt="English Share logo">
+      </div>
+      <div class="brand-name">English<span>Share</span></div>
+    </div>
+    <div class="header-meta">
+      <span class="eyebrow">មេរៀន · Conversation Practice</span>
+      <h1>Everyday Conversations</h1>
+      <p class="subtitle">ការសន្ទនាប្រចាំថ្ងៃ — ជាមួយប្រព័ន្ធពិន្ទុ និងសមិទ្ធផល</p>
+    </div>
+  </header>
+
+  <!-- ============================================================ -->
+  <!-- GAMIFICATION SECTION                                          -->
+  <!-- ============================================================ -->
+  <section class="gamification-section" id="gamificationSection">
+    <div class="gamification-header" id="gamificationHeader">
+      <div class="g-left">
+        <div class="g-level-badge" id="levelBadge">1</div>
+        <div class="g-info">
+          <div class="g-name">
+            <span id="playerName">អ្នកសិក្សា</span>
+            <span class="level-tag" id="levelTag">កម្រិត 1</span>
+          </div>
+          <div class="g-xp-bar">
+            <div class="fill" id="xpBarFill" style="width:0%"></div>
+          </div>
+          <div class="g-xp-text">
+            <span id="xpDisplay">0 XP</span>
+            <span id="xpNext">0 XP</span>
+          </div>
+        </div>
+      </div>
+      <div class="g-right">
+        <div class="g-stat">
+          <span class="num points" id="pointsDisplay">0</span>
+          <span class="label">ពិន្ទុ</span>
+        </div>
+        <div class="g-stat">
+          <span class="num streak" id="streakDisplay">0🔥</span>
+          <span class="label">ថ្ងៃ</span>
+        </div>
+        <div class="g-stat">
+          <span class="num" id="sessionTime">00:00</span>
+          <span class="label">ពេលវេលា</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Badge Collection -->
+    <div class="badge-collection" id="badgeCollection"></div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- DISPLAY CONTROLS - OUTSIDE MAIN CARD                         -->
+  <!-- ============================================================ -->
+  <section class="display-controls-section" id="displayControlsSection">
+    <div class="display-controls" id="displayControls">
+      <div class="display-control">
+        <label>📏 ទំហំ</label>
+        <input type="range" id="fontSizeSlider" min="12" max="24" value="16">
+        <span id="fontSizeLabel">16px</span>
+      </div>
+      <div class="display-control">
+        <label>📐 គម្លាត</label>
+        <input type="range" id="lineSpacingSlider" min="4" max="20" value="10">
+        <span id="lineSpacingLabel">10px</span>
+      </div>
+      <div class="display-control">
+        <label>🔄 Auto-scroll</label>
+        <button class="toggle-btn active" id="autoScrollToggle">បើក</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- MAIN CARD                                                     -->
+  <!-- ============================================================ -->
+  <main class="main-card" id="mainCard">
+    <!-- Floating Controls -->
+    <div class="floating-controls">
+      <button class="ctrl-btn fs-btn" id="fsBtn" title="Fullscreen">⛶</button>
+      <button class="ctrl-btn theme-btn" id="themeBtn" title="Customize">🎨</button>
+      <button class="ctrl-btn hide-btn" id="hideSettingsBtn" title="Hide settings">⚙</button>
+      <button class="ctrl-btn hide-header-btn" id="hideHeaderBtn" title="Hide header">👤</button>
+    </div>
+
+    <!-- ========================================================== -->
+    <!-- CONVERSATION SECTION                                        -->
+    <!-- ========================================================== -->
+    <section class="conversation-section" id="conversationSection">
+      <div class="conversation-header">
+        <span class="topic-tag" id="topicTag">At a Coffee Shop</span>
+        <span class="scene-num" id="sceneNum">Scene 01 / 03</span>
+      </div>
+
+      <!-- ========================================================== -->
+      <!-- DIALOGUE                                                    -->
+      <!-- ========================================================== -->
+      <div class="dialogue-wrapper" id="dialogueWrapper">
+        <div class="dialogue-container" id="dialogueContainer">
+          <div class="dialogue" id="dialogue"></div>
+        </div>
+      </div>
+
+      <!-- Overlays -->
+      <div class="countdown-overlay" id="countdownOverlay">
+        <div class="countdown-content">
+          <p class="countdown-label" id="countdownLabel"></p>
+          <div class="countdown-num" id="countdownNum">3</div>
+        </div>
+      </div>
+
+      <div class="quiz-overlay" id="quizOverlay">
+        <div class="quiz-box">
+          <p class="quiz-title">🎯 តេស្តខ្លី</p>
+          <p class="quiz-prompt" id="quizPrompt"></p>
+          <div class="quiz-options" id="quizOptions"></div>
+          <button class="btn btn-ghost" id="quizSkipBtn">រំលង →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================== -->
+    <!-- SETTINGS SECTION                                            -->
+    <!-- ========================================================== -->
+    <section class="settings-section" id="settingsSection">
+      <!-- Translation -->
+      <div class="settings-group">
+        <div class="settings-row">
+          <select id="translateLangSelect" class="select-full">
+            <option value="km">ខ្មែរ (Khmer) — ដើម</option>
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+            <option value="zh-CN">中文 (Chinese)</option>
+            <option value="ja">日本語 (Japanese)</option>
+            <option value="ko">한국어 (Korean)</option>
+            <option value="th">ไทย (Thai)</option>
+            <option value="vi">Tiếng Việt</option>
+            <option value="hi">हिन्दी (Hindi)</option>
+            <option value="ar">العربية (Arabic)</option>
+            <option value="ru">Русский</option>
+            <option value="de">Deutsch</option>
+            <option value="pt">Português</option>
+            <option value="id">Bahasa Indonesia</option>
+          </select>
+        </div>
+        <p class="settings-hint">បកប្រែជំនួសអក្សរខ្មែរ — ប្រើ Google Translate (ត្រូវការអ៊ីនធឺណិត)</p>
+      </div>
+
+      <!-- Scene Selector -->
+      <div class="settings-group">
+        <select id="sceneSelect" class="select-full"></select>
+      </div>
+
+      <!-- Navigation -->
+      <div class="settings-group">
+        <div class="btn-group">
+          <button class="btn btn-ghost" id="prevBtn">← ត្រឡប់</button>
+          <button class="btn btn-primary" id="nextLineBtn">បន្ទាប់ →</button>
+          <button class="btn btn-ghost" id="nextSceneBtn">ឆាកបន្ទាប់ ⇥</button>
+        </div>
+      </div>
+
+      <!-- Recording -->
+      <div class="settings-group">
+        <div class="settings-row">
+          <label class="settings-label">⏳ ពេលរង់ចាំ</label>
+          <input type="number" id="preRollSeconds" min="0" max="60" value="10">
+          <span class="settings-unit">វិនាទី</span>
+        </div>
+        <button class="btn btn-primary btn-full btn-record" id="recordBtn">🎬 ចាប់ផ្តើមថតវីដេអូ</button>
+        <button class="btn btn-primary btn-full" id="autoPlayBtn">▶ លេងស្វ័យប្រវត្តិ</button>
+        <button class="btn toggle-btn btn-full active" id="autoSpeakBtn">🔊 អាន: បើក</button>
+      </div>
+
+      <!-- Speed -->
+      <div class="settings-group">
+        <div class="settings-row">
+          <label class="settings-label">⏱ ល្បឿនរវាងបន្ទាត់</label>
+          <input type="range" id="lineDelay" min="0.2" max="3" step="0.1" value="0.55">
+          <span class="settings-value" id="lineDelayLabel">0.55s</span>
+        </div>
+      </div>
+
+      <!-- Voice Settings -->
+      <div class="settings-group">
+        <h4 class="settings-title">🗣️ សំឡេង TTS</h4>
+        <div class="settings-row">
+          <label class="settings-label">Speaker A</label>
+          <select id="voiceSelectA" class="select-full"></select>
+        </div>
+        <div class="settings-row">
+          <label class="settings-label">Speaker B</label>
+          <select id="voiceSelectB" class="select-full"></select>
+        </div>
+        <div class="settings-row">
+          <label class="settings-label">ល្បឿននិយាយ</label>
+          <input type="range" id="ttsRate" min="0.5" max="1.5" step="0.05" value="0.9">
+          <span class="settings-value" id="ttsRateLabel">0.90x</span>
+        </div>
+      </div>
+
+      <!-- Theme -->
+      <div class="settings-group theme-panel" id="themePanel">
+        <h4 class="settings-title">🎨 ប្តូរពណ៌</h4>
+        <button class="btn btn-ghost btn-full" id="darkModeBtn">🌙 Dark Mode</button>
+        <div class="color-grid">
+          <label class="color-item"><input type="color" id="colorGold" value="#b8863f"><span>មាស</span></label>
+          <label class="color-item"><input type="color" id="colorJade" value="#3f6355"><span>បៃតង</span></label>
+          <label class="color-item"><input type="color" id="colorLac" value="#a8412f"><span>ក្រហម</span></label>
+          <label class="color-item"><input type="color" id="colorPaper" value="#f2ede2"><span>ផ្ទៃខាងក្រោយ</span></label>
+          <label class="color-item"><input type="color" id="colorPanel" value="#fffdf8"><span>ផ្ទៃកាត</span></label>
+          <label class="color-item"><input type="color" id="colorAbg" value="#e9e2d2"><span>ពពុះ A</span></label>
+          <label class="color-item"><input type="color" id="colorBbg" value="#dfe8e2"><span>ពពុះ B</span></label>
+        </div>
+        <div class="settings-row">
+          <label class="settings-label">🖼 រូបភាពផ្ទៃខាងក្រោយ</label>
+          <input type="file" id="bgImageFile" accept="image/*">
+        </div>
+        <div class="settings-row" id="bgImageControls" style="display:none;">
+          <button class="btn btn-ghost" id="removeBgImageBtn">✕ លុបរូបភាព</button>
+        </div>
+        <button class="btn btn-ghost btn-full" id="resetThemeBtn">↺ ត្រឡប់លំនាំដើម</button>
+        <div class="btn-group">
+          <button class="btn btn-ghost" id="exportSettingsBtn">⬇ Export</button>
+          <button class="btn btn-ghost" id="importSettingsBtn">⬆ Import</button>
+          <input type="file" id="importSettingsFile" accept="application/json" style="display:none;">
+        </div>
+      </div>
+
+      <!-- Music -->
+      <div class="settings-group">
+        <h4 class="settings-title">🎵 ភ្លេងផ្ទៃខាងក្រោយ</h4>
+        <div class="settings-row">
+          <label class="file-dropzone" for="musicFile">
+            <span class="file-dropzone-icon">🎵</span>
+            <span><strong>ជ្រើសរើសភ្លេង</strong><small>MP3, WAV, OGG ឬ M4A</small></span>
+            <input type="file" id="musicFile" accept="audio/*,.mp3,.wav,.ogg,.m4a,.aac">
+          </label>
+          <p class="music-hint" id="musicHint" role="status">មិនទាន់មានភ្លេងទេ — ជ្រើសរើស audio file ពីឧបករណ៍របស់អ្នក</p>
+        </div>
+        <div class="settings-row" id="musicControls" style="display:none;">
+          <button class="btn btn-ghost" id="musicToggle">▶ ចាក់</button>
+          <input type="range" id="musicVolume" min="0" max="1" step="0.01" value="0.15">
+          <span class="settings-value" id="musicVolLabel">15%</span>
+        </div>
+      </div>
+
+      <!-- Tools -->
+      <div class="settings-group">
+        <button class="btn btn-ghost btn-full" id="exportSrtBtn">⬇ Subtitle (.srt)</button>
+        <button class="btn btn-ghost btn-full" id="sceneManagerBtn">📝 គ្រប់គ្រង Scene</button>
+      </div>
+
+      <!-- Scene Manager -->
+      <div class="settings-group scene-panel" id="scenePanel">
+        <h4 class="settings-title">📝 បន្ថែម Scene</h4>
+        <div class="settings-row">
+          <input type="text" id="newSceneTopic" placeholder="ប្រធានបទ" class="input-full">
+        </div>
+        <div id="newSceneLines"></div>
+        <button class="btn btn-ghost btn-full" id="addLineRowBtn">+ បន្ថែមបន្ទាត់</button>
+        <button class="btn btn-primary btn-full" id="saveSceneBtn">💾 រក្សាទុក</button>
+        <h4 class="settings-title">📋 នាំចូល JSON</h4>
+        <textarea id="jsonImportArea" rows="3" class="input-full"></textarea>
+        <button class="btn btn-ghost btn-full" id="importJsonBtn">⬆ នាំចូល</button>
+        <p class="settings-hint" id="sceneManagerHint"></p>
+      </div>
+
+      <!-- Watermark -->
+      <div class="settings-group">
+        <div class="settings-row">
+          <button class="btn toggle-btn active" id="watermarkToggleBtn" style="flex:1;">🏷 Watermark: បើក</button>
+          <select id="watermarkPosSelect" style="flex:1;">
+            <option value="br">ក្រោម-ស្តាំ</option>
+            <option value="bl">ក្រោម-ឆ្វេង</option>
+            <option value="tr">លើ-ស្តាំ</option>
+            <option value="tl">លើ-ឆ្វេង</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div class="progress"><div id="progressBar" style="width:0%"></div></div>
+    </section>
+  </main>
+
+  <!-- ============================================================ -->
+  <!-- FOOTER                                                        -->
+  <!-- ============================================================ -->
+  <footer class="app-footer">
+    <span>Speaker A = សំឡេងប្រុស, Speaker B = សំឡេងស្រី</span>
+  </footer>
+
+  <!-- Watermark -->
+  <div class="watermark" id="watermark">
+    <img src="image/logo_ES.jpg" alt="">
+    <span>English Share</span>
+  </div>
+
+  <!-- Word Popup -->
+  <div class="word-popup" id="wordPopup"></div>
+
+  <!-- Audio -->
+  <audio id="bgMusic" loop></audio>
+</div>
+
+<!-- ============================================================ -->
+<!-- JAVASCRIPT                                                    -->
+<!-- ============================================================ -->
+<script src="js/gamification.js"></script>
+<script src="js/settings.js?v=music-ui-fix-1"></script>
+<script src="js/speech.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/app.js?v=music-ui-fix-1"></script>
+</body>
+</html>
