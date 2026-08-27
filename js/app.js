@@ -60,6 +60,56 @@ const scenes = [{
     { speaker: "B", en: "It's been moved to 3 PM instead of 10 AM.", km: "វាត្រូវបានផ្លាស់ប្តូរទៅម៉ោង ៣ រសៀលជំនួសឱ្យម៉ោង ១០ ព្រឹក។" },
     { speaker: "A", en: "Thanks for letting me know. I'll update my schedule.", km: "អរគុណដែលបានប្រាប់ខ្ញុំ។ ខ្ញុំនឹងកែតម្រូវកាលវិភាគរបស់ខ្ញុំ។" },
   ]
+}, {
+  topic: "Travel & Directions",
+  lines: [
+    { speaker: "A", en: "Excuse me, how can I get to the museum?", km: "សុំទោស តើខ្ញុំអាចទៅសារមន្ទីរបានដោយរបៀបណា?" },
+    { speaker: "B", en: "Go straight and turn right at the second street.", km: "ដើរត្រង់ ហើយបត់ស្តាំនៅផ្លូវទីពីរ។" },
+    { speaker: "A", en: "Is it within walking distance?", km: "តើអាចដើរទៅបានទេ?" },
+    { speaker: "B", en: "Yes, it takes about ten minutes.", km: "បាន វាចំណាយពេលប្រហែលដប់នាទី។" },
+    { speaker: "A", en: "Thank you for your help.", km: "អរគុណសម្រាប់ជំនួយរបស់អ្នក។" },
+    { speaker: "B", en: "You are welcome. Have a nice day!", km: "មិនអីទេ។ សូមឲ្យអ្នកមានថ្ងៃល្អ!" }
+  ]
+}, {
+  topic: "Job Interview",
+  lines: [
+    { speaker: "A", en: "Good morning. Please tell me about yourself.", km: "អរុណសួស្តី។ សូមប្រាប់ខ្ញុំអំពីខ្លួនអ្នក។" },
+    { speaker: "B", en: "I am a friendly person who enjoys helping customers.", km: "ខ្ញុំជាមនុស្សរួសរាយដែលចូលចិត្តជួយអតិថិជន។" },
+    { speaker: "A", en: "What is your strongest skill?", km: "តើជំនាញខ្លាំងបំផុតរបស់អ្នកគឺអ្វី?" },
+    { speaker: "B", en: "I communicate clearly and learn quickly.", km: "ខ្ញុំទំនាក់ទំនងបានច្បាស់ និងរៀនបានលឿន។" },
+    { speaker: "A", en: "Why would you like to work with us?", km: "ហេតុអ្វីអ្នកចង់ធ្វើការជាមួយយើង?" },
+    { speaker: "B", en: "I like your team and I want to grow with the company.", km: "ខ្ញុំចូលចិត្តក្រុមការងាររបស់អ្នក ហើយចង់រីកចម្រើនជាមួយក្រុមហ៊ុន។" }
+  ]
+}, {
+  topic: "Doctor Visit",
+  lines: [
+    { speaker: "A", en: "What brings you to the clinic today?", km: "តើអ្វីនាំអ្នកមកគ្លីនិកថ្ងៃនេះ?" },
+    { speaker: "B", en: "I have had a sore throat since yesterday.", km: "ខ្ញុំឈឺបំពង់កតាំងពីម្សិលមិញ។" },
+    { speaker: "A", en: "Do you have a fever or a cough?", km: "តើអ្នកក្តៅខ្លួន ឬក្អកទេ?" },
+    { speaker: "B", en: "I have a small cough, but no fever.", km: "ខ្ញុំក្អកបន្តិច ប៉ុន្តែមិនក្តៅខ្លួនទេ។" },
+    { speaker: "A", en: "Please drink water and rest today.", km: "សូមផឹកទឹក និងសម្រាកថ្ងៃនេះ។" },
+    { speaker: "B", en: "Thank you, doctor. I will follow your advice.", km: "អរគុណលោកគ្រូពេទ្យ។ ខ្ញុំនឹងធ្វើតាមដំបូន្មាន។" }
+  ]
+}, {
+  topic: "Shopping & Payment",
+  lines: [
+    { speaker: "A", en: "Can I help you find something?", km: "តើខ្ញុំអាចជួយអ្នករកអ្វីមួយបានទេ?" },
+    { speaker: "B", en: "Yes, I am looking for a blue shirt.", km: "បាន ខ្ញុំកំពុងរកអាវពណ៌ខៀវមួយ។" },
+    { speaker: "A", en: "What size would you like?", km: "តើអ្នកចង់បានទំហំអ្វី?" },
+    { speaker: "B", en: "Medium, please. How much is it?", km: "ទំហំមធ្យម សូម។ តើវាតម្លៃប៉ុន្មាន?" },
+    { speaker: "A", en: "It is twenty dollars, and it is on sale today.", km: "វាតម្លៃម្ភៃដុល្លារ ហើយថ្ងៃនេះមានបញ្ចុះតម្លៃ។" },
+    { speaker: "B", en: "Great. I will pay by card.", km: "ល្អណាស់។ ខ្ញុំនឹងបង់ដោយកាត។" }
+  ]
+}, {
+  topic: "Daily Small Talk",
+  lines: [
+    { speaker: "A", en: "How was your morning?", km: "តើព្រឹករបស់អ្នកយ៉ាងម៉េចដែរ?" },
+    { speaker: "B", en: "It was busy, but I finished my important work.", km: "វារវល់ ប៉ុន្តែខ្ញុំបានបញ្ចប់ការងារសំខាន់របស់ខ្ញុំ។" },
+    { speaker: "A", en: "What are you doing after work?", km: "តើអ្នកនឹងធ្វើអ្វីបន្ទាប់ពីការងារ?" },
+    { speaker: "B", en: "I am going to meet a friend for dinner.", km: "ខ្ញុំនឹងជួបមិត្តម្នាក់ញ៉ាំអាហារពេលល្ងាច។" },
+    { speaker: "A", en: "That sounds nice. Do you have plans for the weekend?", km: "ស្តាប់ទៅល្អណាស់។ តើអ្នកមានគម្រោងសម្រាប់ចុងសប្តាហ៍ទេ?" },
+    { speaker: "B", en: "I plan to relax and practice my English.", km: "ខ្ញុំមានគម្រោងសម្រាក និងហាត់ភាសាអង់គ្លេស។" }
+  ]
 }];
 
 // ============================================================

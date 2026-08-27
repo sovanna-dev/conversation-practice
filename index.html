@@ -115,7 +115,7 @@
     <section class="conversation-section" id="conversationSection">
       <div class="conversation-header">
         <span class="topic-tag" id="topicTag">At a Coffee Shop</span>
-        <span class="scene-num" id="sceneNum">Scene 01 / 03</span>
+        <span class="scene-num" id="sceneNum">Scene 01 / 10</span>
       </div>
 
       <!-- ========================================================== -->
@@ -335,9 +335,16 @@
 <!-- JAVASCRIPT                                                    -->
 <!-- ============================================================ -->
 <script src="js/gamification.js"></script>
-<script src="js/settings.js?v=music-ui-fix-1"></script>
+<script src="js/settings.js?v=lessons-v2"></script>
 <script src="js/speech.js"></script>
 <script src="js/ui.js"></script>
-<script src="js/app.js?v=music-ui-fix-1"></script>
+<script src="js/app.js?v=lessons-v2"></script>
+<script>
+  window.addEventListener('load', function () {
+    if (typeof initDisplayControls === 'function') initDisplayControls();
+    if (typeof refreshSceneSelect === 'function') refreshSceneSelect();
+    if (typeof renderScene === 'function' && !document.querySelector('#dialogue .line')) renderScene();
+  });
+</script>
 </body>
 </html>
